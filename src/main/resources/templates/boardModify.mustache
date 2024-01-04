@@ -1,0 +1,30 @@
+{{>layout/header}}
+<h1>게시판</h1>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+    .layout input{
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .layout textarea{
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+<div class="layout">
+    <form action="/community/modifydo?id={{board.id}}" method="post">
+        <input name="title" type="text" value="{{board.title}}"/>
+        <textarea name="content">{{board.content}}</textarea>
+
+        <button type="submit">저장</button>
+    </form>
+</div>
+{{>layout/footer}}

@@ -1,0 +1,51 @@
+{{>layout/header}}
+<h1>게시글</h1>
+<p>내용</p>
+{{#board}}
+    <h1>{{{title}}}</h1>
+    <p>{{{content}}}</p>
+
+    <div>
+        <button onclick="goList()">글 목록</button>
+        <button onclick="deleteId({{id}})">글 삭제</button>
+        <button onclick="modifyBoard({{id}})">글 수정</button>
+    </div>
+{{/board}}
+
+{{#nearById}}
+    <div>
+        <button onclick="checkBid({{bid}})">이전 글</button>
+        </button>
+        <button onclick="checkAid({{aid}})">다음 글</button>
+        </button>
+    </div>
+{{/nearById}}
+<script>
+    function goList(){
+        window.location.href = 'list';
+    }
+
+    function deleteId(id){
+        window.location.href = 'delete?id='+id;
+    }
+
+    function checkBid(bid){
+        if (bid == 0) {
+            alert("이전 글이 없습니다.");
+        } else {
+            window.location.href = 'view?id='+bid;
+        }
+    }
+
+    function checkAid(aid){
+        if (aid == 9999999) {
+            alert("다음 글이 없습니다.");
+        } else {
+            window.location.href = 'view?id='+aid;
+        }
+    }
+    function  modifyBoard(id){
+        window.location.href = 'modify?id='+id;
+    }
+</script>
+{{>layout/footer}}

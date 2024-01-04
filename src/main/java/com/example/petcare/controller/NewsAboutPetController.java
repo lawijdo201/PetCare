@@ -1,13 +1,13 @@
 package com.example.petcare.controller;
 
 import org.springframework.ui.Model;
-import com.example.petcare.data.dto.NewsDTO;
 import com.example.petcare.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/news")
@@ -32,9 +32,8 @@ public class NewsAboutPetController {
     }
 
     @GetMapping("/search")
-    public String newsAll(Model model, String newsName) {
+    public String newsAll(Model model, @RequestParam String newsName) {
         model.addAttribute("NewsDTO", newsService.newsSearch(newsName));
-        //model.addAttribute("NewsDTO", NewsDTO.builder().title("가위").link("바위").date("보").content("콘").build());
         return "news";
     }
 }

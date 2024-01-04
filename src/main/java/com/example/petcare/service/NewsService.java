@@ -1,7 +1,6 @@
 package com.example.petcare.service;
 
 import com.example.petcare.data.dto.NewsDTO;
-import org.json.simple.JSONObject;
 
 import java.util.List;
 
