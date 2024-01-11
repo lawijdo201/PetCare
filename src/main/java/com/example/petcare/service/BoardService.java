@@ -2,6 +2,7 @@ package com.example.petcare.service;
 
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.NearByBoardDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

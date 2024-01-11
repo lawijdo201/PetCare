@@ -1,0 +1,30 @@
+{{>layout/header}}
+<h1>내 아이 찾기</h1>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
+<div class="layout">
+    <button onclick="writeBoard()">글 작성</button>
+    <table>
+        <thead>
+            <th>글번호</th>
+            <th>제목</th>
+        </thead>
+        {{#list}}
+            <tr>
+                <td>{{{id}}}</td>
+                <td><a href="view?id={{id}}">{{{title}}}</a></td>
+            </tr>
+        {{/list}}
+    </table>
+</div>
+<script>
+    function writeBoard(){
+        window.location.href = 'write';
+    }
+</script>
+{{>layout/footer}}

@@ -1,5 +1,5 @@
 {{>layout/header}}
-<h1>게시판</h1>
+<h1>펫 찾기</h1>
 <style>
     .layout {
         width: 500px;
@@ -20,9 +20,10 @@
     }
 </style>
 <div class="layout">
-    <form action="/community/modifydo?id={{board.id}}" method="post">
-        <input name="title" type="text" value="{{board.title}}"/>
-        <textarea name="content">{{board.content}}</textarea>
+    <form action="/findPet/writedo" method="post" enctype="multipart/form-data">
+        <input name="title" type="text"/>
+        <textarea name="content"></textarea>
+        <input type="file" name="file">
         <button type="submit">저장</button>
     </form>
 </div>

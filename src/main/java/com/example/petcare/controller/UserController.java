@@ -43,7 +43,6 @@ public class UserController {
         System.out.println("email:" + userDTO.getEmail());
         System.out.println("pw:" + userDTO.getPw());
 
-
         //1. 회원가입
         if (userService.join(userDTO)) {
             return "login";

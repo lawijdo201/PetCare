@@ -19,19 +19,18 @@ public class UserServiceImpl implements UserService {
     public boolean join(UserDTO userDTO) {
 
         //1. 중복 아이디 및 이메일 체크
-        if (userDAO.existsByidAndEmail(userDTO.getId(), userDTO.getEmail())) {
+        if (!userDAO.existsByidAndEmail(userDTO.getId(), userDTO.getEmail())) {
             return false;
         }
         //2. 회원가입
-        else {
-            User user = User.builder()
-                    .id(userDTO.getId())
-                    .pw(userDTO.getPw())
-                    .email(userDTO.getEmail())
-                    .build();
-            userDAO.saveMember(user);
-        }
-        return true;
+        User user = User.builder()
+                .id(userDTO.getId())
+                .pw(userDTO.getPw())
+                .email(userDTO.getEmail())
+                .build();
+        System.out.println();
+        userDAO.saveMember(user);
+    return true;
     }
 
     @Override

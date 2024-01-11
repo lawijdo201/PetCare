@@ -20,9 +20,10 @@
     }
 </style>
 <div class="layout">
-    <form action="/community/modifydo?id={{board.id}}" method="post">
-        <input name="title" type="text" value="{{board.title}}"/>
-        <textarea name="content">{{board.content}}</textarea>
+    <form action="/findPet/modifydo?id={{petInfo.id}}" method="post">
+        <input name="title" type="text" value="{{petInfo.title}}"/>
+        <textarea name="content">{{petInfo.content}}</textarea>
+        <input type="file" name="file">
         <button type="submit">저장</button>
     </form>
 </div>

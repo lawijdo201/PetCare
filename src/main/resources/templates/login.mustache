@@ -27,9 +27,12 @@
         <div class="submit">
             <input type="submit" value="로그인">
         </div>
-        <div class="button">
-            <input type="button" value="회원가입" onClick="location.href='http://localhost:8090/loginPage/joinPage'">
-        </div>
+        <button onclick="join()">회원가입</button>
     </div>
 </div>
+<script>
+    function join(){
+        window.location.href="/joinPage"
+    }
+</script>
 {{>layout/footer}}

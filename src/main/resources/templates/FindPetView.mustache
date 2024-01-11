@@ -1,15 +1,17 @@
 {{>layout/header}}
-{{#board}}
+{{#petInfo}}
     <h1>게시글</h1>
     <p>{{{title}}}</p>
     <h1>내용</h1>
     <p>{{{content}}}</p>
+    <h1>사진</h1>
+    <img src="{{filepath}}" alt="Server Image">
     <div>
         <button onclick="goList()">글 목록</button>
         <button onclick="deleteId({{id}})">글 삭제</button>
         <button onclick="modifyBoard({{id}})">글 수정</button>
     </div>
-{{/board}}
+{{/petInfo}}
 
 {{#nearById}}
     <div>

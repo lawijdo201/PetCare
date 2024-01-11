@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/community")
@@ -21,18 +22,20 @@ public class BoardWriteController {
     }
 
 
+    //글 목록 불러오기
     @RequestMapping("/list")
     public String showBoard(Model model) {
         model.addAttribute("list", boardService.getBoardList());
         return "community";
     }
 
+    //글 작성
     @RequestMapping("/write")
     public String writeBoard() {
         return "write";
     }
 
-    @GetMapping("/writedo")
+    @PostMapping("/writedo")
     public String writeDo(Board board) {
         System.out.println("제목" + board.getTitle());
         System.out.println("본문" + board.getContent());
@@ -41,6 +44,7 @@ public class BoardWriteController {
         return "list";
     }
 
+    //글 보기
     @GetMapping("/view")
     public String viewBoard(Model model, Integer id) {
         model.addAttribute("board", boardService.getBoard(id));
@@ -48,12 +52,14 @@ public class BoardWriteController {
         return "boardView";
     }
 
+    //글 삭제
     @RequestMapping("/delete")
     public String deleteBoard(Integer id) {
         boardService.deleteBoard(id);
         return "redirect:/community/list";
     }
 
+    //글 수정
     @GetMapping("/modify")
     public String modifyBoard(@RequestParam("id") Integer id, Model model) {
         System.out.println(id);
