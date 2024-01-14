@@ -2,9 +2,10 @@ package com.example.petcare.service;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
-import com.example.petcare.data.dto.Calorie.resultCalorieDTO;
-public interface CalorieService {
-    resultCalorieDTO catFoodCalorie(CalorieCatDTO calorieCatDTO);
+import com.example.petcare.data.dto.Calorie.ResertCalorieCatDTO;
+import com.example.petcare.data.dto.Calorie.ResertCalorieDogDTO;
 
-     resultCalorieDTO dogFoodCalorie(CalorieDogDTO calorieDogDTO);
+public interface CalorieService {
+    ResertCalorieCatDTO catFoodCalorie(CalorieCatDTO calorieCatDTO);
+    ResertCalorieDogDTO dogFoodCalorie(CalorieDogDTO calorieDogDTO);
 }

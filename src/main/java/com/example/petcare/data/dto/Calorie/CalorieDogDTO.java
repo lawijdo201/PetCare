@@ -10,13 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CalorieDogDTO {
-    private String state;       //성장기 or 성묘
-    private boolean big;        //대형견이면 1, 아니면 0
-    private String protein;     //조단백질
-    private String province;    //조지방
-    private String fiber;       //조섬유
-    private String ash;         //조회분
-    private String calcium;     //칼슘
-    private String phosphorus;  //인
-    private String moisture;    //수분
+    private String state;       //성장기 or 성견
+    private float protein;     //조단백질
+    private float province;    //조지방
+    private float fiber;       //조섬유
+    private float ash;         //조회분
+    private float calcium;     //칼슘
+    private float phosphorus;  //인
+    private float moisture;    //수분
 }

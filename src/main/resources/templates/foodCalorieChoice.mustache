@@ -1,0 +1,88 @@
+{{>layout/header}}
+당신의 팻의 종류를 채크해주세요
+<div>
+    <button onclick="dogF()">강아지</button>
+    <button onclick="catF()">고양이</button>
+</div>
+<div id="FormContainer"></div>
+<script>
+    function catF() {
+        var catForm = `
+        <form action="/calorie/feed/cat" method="post" enctype="multipart/form-data">
+        <h2>반려동물 상태</h2>
+            <input type="radio" name="state" value="kid" checked="checked">
+            성장기
+            <input type="radio" name="state" value="adult">
+            성묘
+            <br>
+
+            <h2>조단백질</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="protein" value="0.00">
+            <br>
+            <h2>조지방</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="province" value="0.00">
+            <br>
+            <h2>조섬유</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="fiber" value="0.00">
+            <br>
+            <h2>조회분</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="ash" value="0.00">
+            <br>
+            <h2>칼슘</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="calcium" value="0.00">
+            <br>
+            <h2>인</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="phosphorus" value="0.00">
+            <br>
+            <h2>수분</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="moisture" value="0.00">
+            <br>
+            <h2>타우린</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="taurine" value="0.00">
+            <br>
+            <button type="submit">결과보기</button>
+        </form>
+        `;
+        document.getElementById('FormContainer').innerHTML = catForm;
+        return true;
+    }
+
+    function dogF() {
+        var dogForm = `
+       <form action="/calorie/feed/dog" method="post" enctype="multipart/form-data">
+        <input type="radio" name="state" value="kid" checked="checked">
+            성장기
+            <input type="radio" name="state" value="adult">
+            성묘
+            <br>
+
+            <h2>조단백질</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="protein" value="0.00">
+            <br>
+            <h2>조지방</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="province" value="0.00">
+            <br>
+            <h2>조섬유</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="fiber" value="0.00">
+            <br>
+            <h2>조회분</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="ash" value="0.00">
+            <br>
+            <h2>칼슘</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="calcium" value="0.00">
+            <br>
+            <h2>인</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="phosphorus" value="0.00">
+            <br>
+            <h2>수분</h2>
+            <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="moisture" value="0.00">
+            <br>
+            <button type="submit">결과보기</button>
+    </form>
+        `;
+        document.getElementById('FormContainer').innerHTML = dogForm;
+        return true;
+    }
+</script>
+
+{{>layout/footer}}

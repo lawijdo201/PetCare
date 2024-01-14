@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CalorieCatDTO {
     private String state;       //성장기 or 성묘
-    private String protein;     //조단백질
-    private String province;    //조지방
-    private String fiber;       //조섬유
-    private String ash;         //조회분
-    private String calcium;     //칼슘
-    private String phosphorus;  //인
-    private String moisture;    //수분
-    private String taurine;     //타우린
+    private float protein;     //조단백질
+    private float province;    //조지방
+    private float fiber;       //조섬유
+    private float ash;         //조회분
+    private float calcium;     //칼슘
+    private float phosphorus;  //인
+    private float moisture;    //수분
+    private float taurine;     //타우린
 }

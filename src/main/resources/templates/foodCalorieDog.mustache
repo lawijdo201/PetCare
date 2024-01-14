@@ -1,0 +1,47 @@
+{{>layout/header}}
+    강아지
+DM성분표
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th>조단백질</th>
+        <th>조지방</th>
+        <th>칼슘</th>
+        <th>인</th>
+        <th>탄수화물</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#AAFCO}}
+        <tr>
+            <td>{{{protein}}}</td>
+            <td>{{{province}}}</td>
+            <td>{{{calcium}}}</td>
+            <td>{{{phosphorus}}}</td>
+            <td>{{{carbohydrate}}}</td>
+        </tr>
+    {{/AAFCO}}
+    </tbody>
+</table>
+2020 AAFCO 기준 영양 기준표
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th>조단백질</th>
+        <th>조지방</th>
+        <th>칼슘</th>
+        <th>인</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#AAFCO}}
+        <tr>
+            <td>{{{proteinCHECK}}}</td>
+            <td>{{{provinceCHECK}}}</td>
+            <td>{{{calciumCHECK}}}</td>
+            <td>{{{phosphorusCHECK}}}</td>
+        </tr>
+    {{/AAFCO}}
+    </tbody>
+</table>
+{{>layout/footer}}
