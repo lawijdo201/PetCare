@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CalorieController {
     private CalorieService calorieService;
 
-    @Autowired
     public CalorieController(CalorieService calorieService) {
         this.calorieService = calorieService;
     }
@@ -25,7 +24,6 @@ public class CalorieController {
         return "foodCalorieChoice";
     }
 
-    //아래는 아에 다시 생각
     @PostMapping("/feed/dog")
     public String foodDogCalorie(CalorieDogDTO calorieDogDTO, Model model) {
         model.addAttribute("AAFCO", calorieService.dogFoodCalorie(calorieDogDTO));

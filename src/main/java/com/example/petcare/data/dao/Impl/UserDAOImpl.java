@@ -1,22 +1,21 @@
 package com.example.petcare.data.dao.Impl;
 
 import com.example.petcare.data.dao.UserDAO;
-import com.example.petcare.entity.User;
+import com.example.petcare.entity.UserEntity;
 import com.example.petcare.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserDAOImpl implements UserDAO {
     private final UserRepository userRepository;
-    @Autowired
+
     public UserDAOImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public void saveMember(User user) {
-        userRepository.save(user);
+    public void saveMember(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
     @Override
@@ -35,8 +34,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean existsByidAndEmail(String id, String email) {
-        if (userRepository.existsByidAndEmail(id, email)) {
+    public boolean existsByUsernameAndEmail(String username, String email) {
+        if (userRepository.existsByUsernameAndEmail(username, email)) {
             return false;
         }
         return true;

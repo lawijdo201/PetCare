@@ -1,10 +1,10 @@
 package com.example.petcare.data.dao;
 
 
-import com.example.petcare.entity.User;
+import com.example.petcare.entity.UserEntity;
 
 public interface UserDAO {
-    public void saveMember(User user);
+    public void saveMember(UserEntity userEntity);
 
     boolean findMember(String id);
 
@@ -12,7 +12,7 @@ public interface UserDAO {
 
     void updateMember(String id, String pw, String email);
 
-    boolean existsByidAndEmail(String id, String email);
+    boolean existsByUsernameAndEmail(String id, String email);
 
     void updateUserPassword(String pw, String id);
 }

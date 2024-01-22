@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/findPet")
 public class FindPetController {
     private final FindPetService findPetService;
-    @Autowired
     public FindPetController(FindPetService findPetService) {
         this.findPetService = findPetService;
     }
@@ -35,9 +34,6 @@ public class FindPetController {
 
     @PostMapping("/writedo")
     public String writeDo(PetInfo petInfo, MultipartFile file) {
-        System.out.println("제목" + petInfo.getTitle());
-        System.out.println("본문" + petInfo.getContent());
-
         findPetService.saveBoard(petInfo, file);
         return "list";
     }

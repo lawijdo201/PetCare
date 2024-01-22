@@ -13,7 +13,6 @@ import java.util.List;
 public class FindPetDAOImpl implements FindPetDAO {
     private final FindPetRepository findPetRepository;
 
-    @Autowired
     public FindPetDAOImpl(FindPetRepository findPetRepository) {
         this.findPetRepository = findPetRepository;
     }

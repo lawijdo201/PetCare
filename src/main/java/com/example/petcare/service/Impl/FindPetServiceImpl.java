@@ -23,7 +23,6 @@ import java.util.UUID;
 public class FindPetServiceImpl implements FindPetService {
     private final FindPetDAO findPetDAO;
 
-    @Autowired
     public FindPetServiceImpl(FindPetDAO findPetDAO) {
         this.findPetDAO = findPetDAO;
     }

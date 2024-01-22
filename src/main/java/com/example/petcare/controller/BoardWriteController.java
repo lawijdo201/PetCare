@@ -1,5 +1,6 @@
 package com.example.petcare.controller;
 
+import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardWriteController {
     private final BoardService boardService;
 
-    @Autowired
     public BoardWriteController(BoardService boardService) {
         this.boardService = boardService;
     }
@@ -36,11 +36,8 @@ public class BoardWriteController {
     }
 
     @PostMapping("/writedo")
-    public String writeDo(Board board) {
-        System.out.println("제목" + board.getTitle());
-        System.out.println("본문" + board.getContent());
-
-        boardService.saveBoard(board);
+    public String writeDo(BoardDTO boardDTO) {
+        boardService.saveBoard(boardDTO);
         return "list";
     }
 
@@ -67,7 +64,7 @@ public class BoardWriteController {
         return "boardModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(Board NewBoard){
+    public String modifyDo(BoardDTO NewBoard){
         boardService.updateBoard(NewBoard);
         return "redirect:/community/list";
     }

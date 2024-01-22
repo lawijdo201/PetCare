@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class NewsAboutPetController {
     private final NewsService newsService;
 
-    @Autowired
     public NewsAboutPetController(NewsService newsService) {
         this.newsService = newsService;
     }

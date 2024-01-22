@@ -1,6 +1,7 @@
 package com.example.petcare.service.Impl;
 
 import com.example.petcare.data.dao.BoardDAO;
+import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.NearByBoardDTO;
 import com.example.petcare.service.BoardService;
@@ -17,13 +18,16 @@ import java.util.UUID;
 public class BoardServiceImpl implements BoardService {
     private BoardDAO boardDAO;
 
-    @Autowired
     public BoardServiceImpl(BoardDAO boardDAO) {
         this.boardDAO = boardDAO;
     }
 
     //글 저장
-    public void saveBoard(Board board) {
+    public void saveBoard(BoardDTO boardDTO) {
+        Board board = Board.builder()
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .build();
         boardDAO.write(board);
     }
 
@@ -47,7 +51,14 @@ public class BoardServiceImpl implements BoardService {
 
     //글 업데이트
     @Transactional
-    public void updateBoard(Board NewBoard){
+    public void updateBoard(BoardDTO boardDTO){
+
+        //DTO -> Entity
+        Board NewBoard = Board.builder()
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .build();
+
         //Entity를 영속상태로 가져옴
         Board OldBoard = boardDAO.getBoard(NewBoard.getId());
         System.out.println("기존의 Board");

@@ -1,5 +1,6 @@
 package com.example.petcare.data.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

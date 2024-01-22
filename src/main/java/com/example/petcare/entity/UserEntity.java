@@ -11,17 +11,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User{
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer num;
+    private int id;
 
-    @Column
-    private String id;
+    @Column(unique = true)
+    private String username;
 
     @Column
     private String pw;
 
-    @Column
+    @Column(unique = true)
     private String email;
+
+    @Column
+    private String role;
 }

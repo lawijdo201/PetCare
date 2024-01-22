@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class BoardDAOImpl implements BoardDAO {
     private BoardRepository boardRepository;
-    @Autowired
 
     public BoardDAOImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
