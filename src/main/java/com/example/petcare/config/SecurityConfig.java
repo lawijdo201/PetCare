@@ -1,4 +1,3 @@
-/*
 package com.example.petcare.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,40 +27,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        */
-/*csrf disable*//*
+        /*csrf disable*/
 
         http
                 .csrf((auth)->auth.disable());
-        */
-/*경로별 인가*//*
+        /*경로별 인가*/
 
         http
                 .authorizeHttpRequests(auth ->
                                 auth.requestMatchers("/").permitAll()
-                                        .requestMatchers("/loginPage/login","loginPage/logindo","/loginPage/join","/loginPage/joindo").permitAll()
+                                        .requestMatchers("/login","/logindo","/join","/joindo").permitAll()
                                         .requestMatchers("/community/list","/community/view").permitAll()
                                         .requestMatchers("/calorie","/calorie/feed","/calorie/feed/dog","/calorie/feed/cat").permitAll()
                                         .requestMatchers("/findPet/list","/findPet/view").permitAll()
                                         .requestMatchers("/news/*").permitAll()
-                                        .requestMatchers("/loginPage/logout").hasAnyRole("USER","ADMIN")
+                                        .requestMatchers("/logout").hasAnyRole("USER","ADMIN")
+                                        .requestMatchers("/main").hasAnyRole("USER","ADMIN")
                                         .anyRequest().authenticated());
-        */
-/*httpBasic 인증*//*
+        /*httpBasic 인증*/
 
         http
                 .httpBasic((auth) -> auth.disable());
 
-        */
-/*form로그인*//*
+        /*form로그인*/
 
         http
                 .formLogin((formLogin)->{
                     formLogin
-                            .loginPage("/loginPage/login")
+                            .loginPage("/login")
                             .loginProcessingUrl("/logindo")
+                            .usernameParameter("username")
+                            .passwordParameter("pw")
+                            .successForwardUrl("/main")
                             .permitAll();
                 });
         return http.build();
     }
-}*/
+}

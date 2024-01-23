@@ -5,6 +5,7 @@ import com.example.petcare.data.dto.User.UserDTO;
 import com.example.petcare.entity.UserEntity;
 import com.example.petcare.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +13,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
-
-    public UserServiceImpl(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-/*    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserServiceImpl(UserDAO userDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDAO = userDAO;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }*/
+    }
 
     @Override
     public boolean join(UserDTO userDTO) {
@@ -35,7 +32,7 @@ public class UserServiceImpl implements UserService {
         //2. 회원가입
         UserEntity userEntity = UserEntity.builder()
                 .username(userDTO.getUsername())
-                //.pw(bCryptPasswordEncoder.encode(userDTO.getPw()))
+                .pw(bCryptPasswordEncoder.encode(userDTO.getPw()))
                 .email(userDTO.getEmail())
                 .role("ROLE_USER")
                 .build();

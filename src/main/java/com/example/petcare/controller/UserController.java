@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/loginPage")
 @Slf4j
 public class UserController {
     private final UserService userService;
@@ -22,29 +21,23 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public String loginPage(Model model) {
-        return "login";
-    }
-
-    @PostMapping("/logindo")
-    public String login(UserDTO userDTO) {
-        userService.login(userDTO);
+    public String loginPage() {
         return "login";
     }
 
     @RequestMapping("/logout")
     public String logout(UserDTO userDTO) {
+        log.info("로그아웃");
         return "community";
     }
 
     @GetMapping("/join")
     public String joinPage() {
-        log.info("왜안돼");
-        return "join";
+        return "joinPage";
     }
-    @PostMapping("/joindo")
+    @RequestMapping("/joindo")
     public String join(UserDTO userDTO) {
-        log.info("id:" + userDTO.getUsername());
+        log.info("username:" + userDTO.getUsername());
         log.info("email:" + userDTO.getEmail());
         log.info("pw:" + userDTO.getPw());
 
