@@ -1,11 +1,13 @@
-package com.example.petcare.service.Impl;
+package com.example.petcare.service.FindPet.Impl;
 
 import com.example.petcare.data.dao.FindPetDAO;
-import com.example.petcare.data.dto.NearByBoardDTO;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
+import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
-import com.example.petcare.service.FindPetService;
+import com.example.petcare.service.FindPet.FindPetService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +18,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,7 +29,12 @@ public class FindPetServiceImpl implements FindPetService {
     }
 
     //글 저장
-    public void saveBoard(PetInfo petInfo, MultipartFile file) {
+    public void saveBoard(PetDTO petDTO, MultipartFile file) {
+        PetInfo petInfo = PetInfo.builder()
+                .title(petDTO.getTitle())
+                .content(petDTO.getContent())
+                .build();
+
         String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
@@ -46,8 +52,8 @@ public class FindPetServiceImpl implements FindPetService {
     }
 
     //글 목록 불러오기
-    public List<PetInfo> getBoardList() {
-        return findPetDAO.getBoardList();
+    public Page<PetInfo> getBoardList(Pageable pageable) {
+        return findPetDAO.getBoardList(pageable);
     }
 
     //글 내용 불러오기

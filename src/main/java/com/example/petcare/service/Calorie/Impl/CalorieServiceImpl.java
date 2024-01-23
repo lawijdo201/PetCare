@@ -1,10 +1,10 @@
-package com.example.petcare.service.Impl;
+package com.example.petcare.service.Calorie.Impl;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
 import com.example.petcare.data.dto.Calorie.ResertCalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.ResertCalorieDogDTO;
-import com.example.petcare.service.CalorieService;
+import com.example.petcare.service.Calorie.CalorieService;
 import org.springframework.stereotype.Service;
 
 @Service

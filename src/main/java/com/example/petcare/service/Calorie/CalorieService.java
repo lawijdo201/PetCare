@@ -1,4 +1,4 @@
-package com.example.petcare.service;
+package com.example.petcare.service.Calorie;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;

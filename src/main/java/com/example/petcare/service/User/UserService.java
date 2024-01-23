@@ -1,4 +1,4 @@
-package com.example.petcare.service;
+package com.example.petcare.service.User;
 
 
 import com.example.petcare.data.dto.User.UserDTO;

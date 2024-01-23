@@ -1,16 +1,22 @@
 package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Board.BoardDTO;
-import com.example.petcare.entity.Board;
-import com.example.petcare.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.petcare.service.Board.BoardService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/community")
@@ -23,20 +29,38 @@ public class BoardWriteController {
 
 
     //글 목록 불러오기
-    @RequestMapping("/list")
-    public String showBoard(Model model) {
-        model.addAttribute("list", boardService.getBoardList());
+    @GetMapping("/list")
+    public String showBoard(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page list = boardService.getBoardList(pageable);
+        int CurrentPage = pageable.getPageNumber();//23
+
+        List<Integer> num = new ArrayList<>();
+        Map<String, Object> page = new HashMap<>();
+        page.put("num", num);
+        for (int i = CurrentPage-CurrentPage%10; i < Math.min(CurrentPage-CurrentPage%10+10,list.getTotalPages()); i++) {
+            num.add(i);
+        }
+        page.put("CurrentPage", CurrentPage);
+        System.out.println(page);
+
+
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute("list", list);
+        model.addAttribute("page", page);
         return "community";
     }
 
     //글 작성
-    @RequestMapping("/write")
-    public String writeBoard() {
+    @GetMapping("/write")
+    public String writeBoard(Model model) {
         return "write";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(BoardDTO boardDTO) {
+    public String writeDo(BoardDTO boardDTO, Model model) {
         boardService.saveBoard(boardDTO);
         return "list";
     }
@@ -50,8 +74,8 @@ public class BoardWriteController {
     }
 
     //글 삭제
-    @RequestMapping("/delete")
-    public String deleteBoard(Integer id) {
+    @GetMapping("/delete")
+    public String deleteBoard(Integer id, Model model) {
         boardService.deleteBoard(id);
         return "redirect:/community/list";
     }
@@ -64,7 +88,7 @@ public class BoardWriteController {
         return "boardModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(BoardDTO NewBoard){
+    public String modifyDo(BoardDTO NewBoard, Model model){
         boardService.updateBoard(NewBoard);
         return "redirect:/community/list";
     }

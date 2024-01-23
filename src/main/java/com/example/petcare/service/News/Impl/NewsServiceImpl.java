@@ -1,7 +1,7 @@
-package com.example.petcare.service.Impl;
+package com.example.petcare.service.News.Impl;
 
-import com.example.petcare.data.dto.NewsDTO;
-import com.example.petcare.service.NewsService;
+import com.example.petcare.data.dto.News.NewsDTO;
+import com.example.petcare.service.News.NewsService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

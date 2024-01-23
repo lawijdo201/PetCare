@@ -7,13 +7,22 @@
         <input type="text" name="username" id="username" placeholder="아이디">
         <h4>Password</h4>
         <input type="password" name="pw" id="pw" placeholder="비밀번호">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <br>
         <input type="submit" value="로그인">
         <input type="button" value="회원가입" onclick="join()">
+        <input type="button" value="네이버 로그인" onclick="joinByNaver()">
+        <input type="button" value="구글 로그인" onclick="joinByGoogle()">
     </form>
     <script>
         function join(){
             window.location.href='/loginPage/join';
+        }
+        function joinByNaver(){
+            window.location.href='/oauth2/authorization/naver'
+        }
+        function joinByGoogle(){
+            window.location.href='/oauth2/authorization/google'
         }
     </script>
 </div>

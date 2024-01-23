@@ -1,6 +1,6 @@
-package com.example.petcare.service;
+package com.example.petcare.service.News;
 
-import com.example.petcare.data.dto.NewsDTO;
+import com.example.petcare.data.dto.News.NewsDTO;
 
 import java.util.List;
 

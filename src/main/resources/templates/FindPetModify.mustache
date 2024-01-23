@@ -24,6 +24,7 @@
         <input name="title" type="text" value="{{petInfo.title}}"/>
         <textarea name="content">{{petInfo.content}}</textarea>
         <input type="file" name="file">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <button type="submit">저장</button>
     </form>
 </div>

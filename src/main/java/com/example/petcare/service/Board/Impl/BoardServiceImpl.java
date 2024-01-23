@@ -1,22 +1,18 @@
-package com.example.petcare.service.Impl;
+package com.example.petcare.service.Board.Impl;
 
 import com.example.petcare.data.dao.BoardDAO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
-import com.example.petcare.data.dto.NearByBoardDTO;
-import com.example.petcare.service.BoardService;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
+import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-    private BoardDAO boardDAO;
+    private final BoardDAO boardDAO;
 
     public BoardServiceImpl(BoardDAO boardDAO) {
         this.boardDAO = boardDAO;
@@ -32,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //글 목록 불러오기
-    public List<Board> getBoardList() {
-        return boardDAO.getBoardList();
+    public Page<Board> getBoardList(Pageable pageable) {
+        return boardDAO.getBoardList(pageable);
     }
 
     //글 내용 불러오기

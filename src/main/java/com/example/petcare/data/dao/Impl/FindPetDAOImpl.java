@@ -1,10 +1,11 @@
 package com.example.petcare.data.dao.Impl;
 
 import com.example.petcare.data.dao.FindPetDAO;
-import com.example.petcare.data.dto.NearByBoardDTO;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.repository.FindPetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class FindPetDAOImpl implements FindPetDAO {
     }
 
     @Override
-    public List<PetInfo> getBoardList() {
-        return findPetRepository.findAll();
+    public Page<PetInfo> getBoardList(Pageable pageable) {
+        return findPetRepository.findAll(pageable);
     }
 
     @Override

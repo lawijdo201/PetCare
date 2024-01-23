@@ -1,11 +1,9 @@
 package com.example.petcare.controller;
 
 import org.springframework.ui.Model;
-import com.example.petcare.service.NewsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.petcare.service.News.NewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

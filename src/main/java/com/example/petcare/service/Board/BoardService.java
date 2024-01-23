@@ -1,15 +1,14 @@
-package com.example.petcare.service;
+package com.example.petcare.service.Board;
 
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
-import com.example.petcare.data.dto.NearByBoardDTO;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
     void saveBoard(BoardDTO boardDTO);
-    public List<Board> getBoardList();
+    public Page<Board> getBoardList(Pageable pageable);
     public Board getBoard(Integer id);
     public NearByBoardDTO getNearByBoard(Integer id);
 

@@ -21,6 +21,23 @@
             </tr>
         {{/list}}
     </table>
+    <div>
+        {{#hasPrev}}
+            <a href="?page={{previous}}">이전</a>
+        {{/hasPrev}}
+        {{^hasPrev}}
+            이전
+        {{/hasPrev}}
+        {{#page.num}}
+            <a href="list?page={{.}}">{{.}}</a>
+        {{/page.num}}
+        {{#hasNext}}
+            <a href="?page={{next}}">다음</a>
+        {{/hasNext}}
+        {{^hasNext}}
+            다음
+        {{/hasNext}}
+    </div>
 </div>
 <script>
     function writeBoard(){

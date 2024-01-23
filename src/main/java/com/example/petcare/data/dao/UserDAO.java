@@ -4,7 +4,7 @@ package com.example.petcare.data.dao;
 import com.example.petcare.entity.UserEntity;
 
 public interface UserDAO {
-    public void saveMember(UserEntity userEntity);
+    void saveMember(UserEntity userEntity);
 
     boolean findMember(String id);
 

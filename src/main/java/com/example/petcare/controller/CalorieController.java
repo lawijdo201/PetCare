@@ -2,8 +2,7 @@ package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
-import com.example.petcare.service.CalorieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.petcare.service.Calorie.CalorieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/calorie")
 public class CalorieController {
-    private CalorieService calorieService;
+    private final CalorieService calorieService;
 
     public CalorieController(CalorieService calorieService) {
         this.calorieService = calorieService;
     }
 
     @GetMapping("/feed")
-    public String choicePet() {
+    public String choicePet(Model model) {
         return "foodCalorieChoice";
     }
 

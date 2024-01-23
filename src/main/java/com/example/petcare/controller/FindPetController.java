@@ -1,8 +1,12 @@
 package com.example.petcare.controller;
 
+import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
-import com.example.petcare.service.FindPetService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.petcare.service.FindPet.FindPetService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/findPet")
@@ -20,21 +29,39 @@ public class FindPetController {
     }
 
     //글 목록 불러오기
-    @RequestMapping("/list")
-    public String showBoard(Model model) {
-        model.addAttribute("list", findPetService.getBoardList());
+    @GetMapping("/list")
+    public String showBoard(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page list = findPetService.getBoardList(pageable);
+        int CurrentPage = pageable.getPageNumber();
+
+        List<Integer> num = new ArrayList<>();
+        Map<String, Object> page = new HashMap<>();
+        page.put("num", num);
+        for (int i = CurrentPage-CurrentPage%10; i < Math.min(CurrentPage-CurrentPage%10+10,list.getTotalPages()); i++) {
+            num.add(i);
+        }
+        page.put("CurrentPage", CurrentPage);
+        System.out.println(page);
+
+
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute("list", list);
+        model.addAttribute("page", page);
         return "FindPetMain";
     }
 
     //글 작성
-    @RequestMapping("/write")
-    public String writeBoard() {
+    @GetMapping("/write")
+    public String writeBoard(Model model) {
         return "FindPetWrite";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(PetInfo petInfo, MultipartFile file) {
-        findPetService.saveBoard(petInfo, file);
+    public String writeDo(PetDTO petDTO, MultipartFile file, Model model) {
+        findPetService.saveBoard(petDTO, file);
         return "list";
     }
 
@@ -47,8 +74,8 @@ public class FindPetController {
     }
 
     //글 삭제
-    @RequestMapping("/delete")
-    public String deleteBoard(Integer id) {
+    @GetMapping("/delete")
+    public String deleteBoard(Integer id, Model model) {
         findPetService.deleteBoard(id);
         return "redirect:/findPet/list";
     }
@@ -62,7 +89,7 @@ public class FindPetController {
         return "FindPetModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(PetInfo NewPetInfo, MultipartFile file){
+    public String modifyDo(PetInfo NewPetInfo, MultipartFile file, Model model){
         findPetService.updateBoard(NewPetInfo, file);
         return "redirect:/findPet/list";
     }

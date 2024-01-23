@@ -1,5 +1,6 @@
 package com.example.petcare.entity;
 
+import com.example.petcare.data.dto.Search.SearchDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

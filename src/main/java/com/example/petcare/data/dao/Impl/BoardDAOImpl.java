@@ -2,16 +2,17 @@ package com.example.petcare.data.dao.Impl;
 
 import com.example.petcare.data.dao.BoardDAO;
 import com.example.petcare.entity.Board;
-import com.example.petcare.data.dto.NearByBoardDTO;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
 import com.example.petcare.repository.BoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class BoardDAOImpl implements BoardDAO {
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     public BoardDAOImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -20,8 +21,8 @@ public class BoardDAOImpl implements BoardDAO {
     public void write(Board board) {
         boardRepository.save(board);
     }
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
+    public Page<Board> getBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
     @Override

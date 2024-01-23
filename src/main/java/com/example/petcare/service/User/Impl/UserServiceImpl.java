@@ -1,9 +1,9 @@
-package com.example.petcare.service.Impl;
+package com.example.petcare.service.User.Impl;
 
 import com.example.petcare.data.dao.UserDAO;
 import com.example.petcare.data.dto.User.UserDTO;
 import com.example.petcare.entity.UserEntity;
-import com.example.petcare.service.UserService;
+import com.example.petcare.service.User.UserService;
 import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
