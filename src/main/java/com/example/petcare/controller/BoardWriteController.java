@@ -1,16 +1,13 @@
 package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Board.BoardDTO;
-import com.example.petcare.entity.Board;
 import com.example.petcare.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/community")
@@ -31,12 +28,12 @@ public class BoardWriteController {
 
     //글 작성
     @RequestMapping("/write")
-    public String writeBoard() {
+    public String writeBoard(Model model) {
         return "write";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(BoardDTO boardDTO) {
+    public String writeDo(BoardDTO boardDTO, Model model) {
         boardService.saveBoard(boardDTO);
         return "list";
     }
@@ -51,7 +48,7 @@ public class BoardWriteController {
 
     //글 삭제
     @RequestMapping("/delete")
-    public String deleteBoard(Integer id) {
+    public String deleteBoard(Integer id, Model model) {
         boardService.deleteBoard(id);
         return "redirect:/community/list";
     }
@@ -64,7 +61,7 @@ public class BoardWriteController {
         return "boardModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(BoardDTO NewBoard){
+    public String modifyDo(BoardDTO NewBoard, Model model){
         boardService.updateBoard(NewBoard);
         return "redirect:/community/list";
     }

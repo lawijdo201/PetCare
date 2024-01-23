@@ -2,7 +2,6 @@ package com.example.petcare.controller;
 
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.service.FindPetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +27,12 @@ public class FindPetController {
 
     //글 작성
     @RequestMapping("/write")
-    public String writeBoard() {
+    public String writeBoard(Model model) {
         return "FindPetWrite";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(PetInfo petInfo, MultipartFile file) {
+    public String writeDo(PetInfo petInfo, MultipartFile file, Model model) {
         findPetService.saveBoard(petInfo, file);
         return "list";
     }
@@ -48,7 +47,7 @@ public class FindPetController {
 
     //글 삭제
     @RequestMapping("/delete")
-    public String deleteBoard(Integer id) {
+    public String deleteBoard(Integer id, Model model) {
         findPetService.deleteBoard(id);
         return "redirect:/findPet/list";
     }
@@ -62,7 +61,7 @@ public class FindPetController {
         return "FindPetModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(PetInfo NewPetInfo, MultipartFile file){
+    public String modifyDo(PetInfo NewPetInfo, MultipartFile file, Model model){
         findPetService.updateBoard(NewPetInfo, file);
         return "redirect:/findPet/list";
     }
