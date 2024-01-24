@@ -1,7 +1,9 @@
 package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Board.BoardDTO;
+import com.example.petcare.entity.Board;
 import com.example.petcare.service.Board.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +35,7 @@ public class BoardWriteController {
     @GetMapping("/list")
     public String showBoard(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page list = boardService.getBoardList(pageable);
-        int CurrentPage = pageable.getPageNumber();//23
+        int CurrentPage = pageable.getPageNumber();
 
         List<Integer> num = new ArrayList<>();
         Map<String, Object> page = new HashMap<>();
@@ -52,15 +55,14 @@ public class BoardWriteController {
         model.addAttribute("page", page);
         return "community";
     }
-
     //글 작성
-    @GetMapping("/write")
-    public String writeBoard(Model model) {
+    @RequestMapping("/write")
+    public String writeBoard() {
         return "write";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(BoardDTO boardDTO, Model model) {
+    public String writeDo(BoardDTO boardDTO) {
         boardService.saveBoard(boardDTO);
         return "list";
     }
@@ -74,8 +76,8 @@ public class BoardWriteController {
     }
 
     //글 삭제
-    @GetMapping("/delete")
-    public String deleteBoard(Integer id, Model model) {
+    @RequestMapping("/delete")
+    public String deleteBoard(Integer id) {
         boardService.deleteBoard(id);
         return "redirect:/community/list";
     }
@@ -88,7 +90,7 @@ public class BoardWriteController {
         return "boardModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(BoardDTO NewBoard, Model model){
+    public String modifyDo(BoardDTO NewBoard){
         boardService.updateBoard(NewBoard);
         return "redirect:/community/list";
     }

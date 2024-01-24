@@ -2,7 +2,7 @@ package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
-import com.example.petcare.service.Calorie.CalorieService;
+import com.example.petcare.service.CalorieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
