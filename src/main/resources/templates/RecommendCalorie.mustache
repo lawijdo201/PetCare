@@ -1,0 +1,61 @@
+{{>layout/header}}
+당신의 팻의 종류를 채크해주세요
+<div>
+    <button onclick="dogF()">강아지</button>
+    <button onclick="catF()">고양이</button>
+</div>
+<div id="FormContainer"></div>
+<script>
+    function catF() {
+        var catForm = `
+         <form action="/calorie/recommand_calorie/cat" method="get">
+        <h2>반려동물 몸무게</h2>
+        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">KG
+        <h2>반려동물 상태</h2>
+        <label for="stats">반려동물 상태</label>
+        <select name="stats" id="stats">
+            <option value=3.0 selected>이유식~4개월</option>
+            <option value=2.5>4개월~6개월</option>
+            <option value=2.0>7개월~12개월</option>
+            <option value=1.2>중성화하지 않은 경우</option>
+            <option value=1.4>중성화한 경우</option>
+            <option value=0.8>비만</option>
+            <option value=1.6>운동량이 많은 성묘</option>
+            <option value=0.7>노묘</option>
+        </select>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <input type="submit" value="알아보기">
+    </form>
+        `;
+        document.getElementById('FormContainer').innerHTML = catForm;
+        return true;
+    }
+
+    function dogF() {
+        var dogForm = `
+        <form action="calorie/recommand_calorie/dog" method="get">
+        <h2>반려동물 몸무게</h2>
+        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">KG
+        <h2>반려동물 상태</h2>
+        <label for="stats">반려동물 상태</label>
+        <select name="stats" id="stats">
+            <option value=3.0 selected>이유식~4개월</option>
+            <option value=2.0>4개월~성견</option>
+            <option value=1.8>중성화하지 않은 경우</option>
+            <option value=1.6>중성화한 경우</option>
+            <option value=1.4>과체중</option>
+            <option value=1.0>비만</option>
+            <option value=1.8>임신 전반 42일간</option>
+            <option value=3.0>임신 후반 21일간</option>
+            <option value=1.4>노령견</option>
+        </select>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <input type="submit" value="알아보기">
+    </form>
+        `;
+        document.getElementById('FormContainer').innerHTML = dogForm;
+        return true;
+    }
+</script>
+
+{{>layout/footer}}

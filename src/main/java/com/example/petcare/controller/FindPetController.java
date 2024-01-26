@@ -3,10 +3,12 @@ package com.example.petcare.controller;
 import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.service.FindPet.FindPetService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Slf4j
 @RequestMapping("/findPet")
 public class FindPetController {
     private final FindPetService findPetService;
@@ -62,7 +65,7 @@ public class FindPetController {
     @PostMapping("/writedo")
     public String writeDo(PetDTO petDTO, MultipartFile file, Model model) {
         findPetService.saveBoard(petDTO, file);
-        return "list";
+        return "redirect:/findPet/list";
     }
 
     //글 보기
@@ -75,18 +78,29 @@ public class FindPetController {
 
     //글 삭제
     @GetMapping("/delete")
-    public String deleteBoard(Integer id, Model model) {
-        findPetService.deleteBoard(id);
+    public String deleteBoard(@RequestParam("id") Integer id, @RequestParam("user") String user, Model model) {
+        //작성자인지 체크
+        if (user.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            findPetService.deleteBoard(id);
+        } else {
+            //오류 발생
+            log.warn("{}사용자의 게시물이 아닙니다.", user);
+        }
         return "redirect:/findPet/list";
     }
 
     //글 수정
     @GetMapping("/modify")
-    public String modifyBoard(@RequestParam("id") Integer id, Model model) {
-        System.out.println(id);
-        model.addAttribute("petInfo", findPetService.getBoard(id));
-        System.out.println("done");
-        return "FindPetModify";
+    public String modifyBoard(@RequestParam("id") Integer id, @RequestParam("user") String user, Model model) {
+        //작성자인지 체크
+        if (user.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            model.addAttribute("petInfo", findPetService.getBoard(id));
+            return "FindPetModify";
+        } else {
+            //오류 발생
+            log.warn("{}사용자의 게시물이 아닙니다.", user);
+        }
+        return "redirect:/findPet/list";
     }
     @PostMapping("/modifydo")
     public String modifyDo(PetInfo NewPetInfo, MultipartFile file, Model model){

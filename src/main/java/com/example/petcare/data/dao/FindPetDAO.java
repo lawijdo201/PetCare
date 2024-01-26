@@ -14,4 +14,5 @@ public interface FindPetDAO {
 
     NearByBoardDTO getNearByBoard(Integer id);
     void deleteBoard(Integer id);
+
 }

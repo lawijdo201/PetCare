@@ -12,7 +12,8 @@ public interface UserDAO {
 
     void updateMember(String id, String pw, String email);
 
-    boolean existsByUsernameAndEmail(String id, String email);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 
     void updateUserPassword(String pw, String id);
 }

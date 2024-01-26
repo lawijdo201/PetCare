@@ -3,18 +3,18 @@ package com.example.petcare.controller;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.service.Board.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Slf4j
 @RequestMapping("/community")
 public class BoardWriteController {
     private final BoardService boardService;
@@ -35,6 +36,7 @@ public class BoardWriteController {
     @GetMapping("/list")
     public String showBoard(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page list = boardService.getBoardList(pageable);
+
         int CurrentPage = pageable.getPageNumber();
 
         List<Integer> num = new ArrayList<>();
@@ -44,7 +46,6 @@ public class BoardWriteController {
             num.add(i);
         }
         page.put("CurrentPage", CurrentPage);
-        System.out.println(page);
 
 
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
@@ -64,7 +65,7 @@ public class BoardWriteController {
     @PostMapping("/writedo")
     public String writeDo(BoardDTO boardDTO) {
         boardService.saveBoard(boardDTO);
-        return "list";
+        return "redirect:/community/list";
     }
 
     //글 보기
@@ -77,16 +78,28 @@ public class BoardWriteController {
 
     //글 삭제
     @RequestMapping("/delete")
-    public String deleteBoard(Integer id) {
-        boardService.deleteBoard(id);
+    public String deleteBoard(@RequestParam("id") Integer id, @RequestParam("user") String user, Model model) {
+        //작성자인지 체크
+        if (user.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            boardService.deleteBoard(id);
+        } else {
+            //오류 발생
+            log.warn("{}사용자의 게시물이 아닙니다.", user);
+        }
         return "redirect:/community/list";
     }
 
     //글 수정
     @GetMapping("/modify")
-    public String modifyBoard(@RequestParam("id") Integer id, Model model) {
-        System.out.println(id);
-        model.addAttribute("board", boardService.getBoard(id));
+    public String modifyBoard(@RequestParam("id") Integer id, @RequestParam("user") String user, Model model) {
+        //작성자인지 체크
+        if (user.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            model.addAttribute("board", boardService.getBoard(id));
+            return "boardModify";
+        } else {
+            //오류 발생
+            log.warn("{}사용자의 게시물이 아닙니다.", user);
+        }
         return "boardModify";
     }
     @PostMapping("/modifydo")

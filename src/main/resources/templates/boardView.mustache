@@ -6,8 +6,8 @@
     <p>{{{content}}}</p>
     <div>
         <button onclick="goList()">글 목록</button>
-        <button onclick="deleteId({{id}})">글 삭제</button>
-        <button onclick="modifyBoard({{id}})">글 수정</button>
+        <button onclick="deleteId({{id}}, '{{user}}')">글 삭제</button>
+        <button onclick="modifyBoard({{id}}, '{{user}}')">글 수정</button>
     </div>
 {{/board}}
 
@@ -24,15 +24,15 @@
         window.location.href = 'list';
     }
 
-    function deleteId(id){
-        window.location.href = 'delete?id='+id;
+    function deleteId(id, user){
+        window.location.href = 'delete?id=' + id + "&user=" + user;
     }
 
     function checkBid(bid){
         if (bid == 0) {
             alert("이전 글이 없습니다.");
         } else {
-            window.location.href = 'view?id='+bid;
+            window.location.href = 'view?id=' + bid;
         }
     }
 
@@ -40,11 +40,11 @@
         if (aid == 9999999) {
             alert("다음 글이 없습니다.");
         } else {
-            window.location.href = 'view?id='+aid;
+            window.location.href = 'view?id=' + aid;
         }
     }
-    function  modifyBoard(id){
-        window.location.href = 'modify?id='+id;
+    function modifyBoard(id, user){
+        window.location.href = 'modify?id=' + id + "&user=" + user;
     }
 </script>
 {{>layout/footer}}

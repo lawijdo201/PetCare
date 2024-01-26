@@ -34,8 +34,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean existsByUsernameAndEmail(String username, String email) {
-        if (userRepository.existsByUsernameAndEmail(username, email)) {
+    public boolean existsByUsername(String username) {
+        if (userRepository.existsByUsername(username)) {
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public boolean existsByEmail(String email) {
+        if (userRepository.existsByEmail(email)) {
             return false;
         }
         return true;

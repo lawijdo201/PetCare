@@ -1,6 +1,5 @@
 package com.example.petcare.entity;
 
-import com.example.petcare.data.dto.Search.SearchDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,4 +19,6 @@ public class Board {
     private String title;
     @Column
     private String content;
+    @Column
+    private String user;
 }

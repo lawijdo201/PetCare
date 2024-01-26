@@ -1,9 +1,6 @@
 package com.example.petcare.service.Calorie.Impl;
 
-import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
-import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
-import com.example.petcare.data.dto.Calorie.ResertCalorieCatDTO;
-import com.example.petcare.data.dto.Calorie.ResertCalorieDogDTO;
+import com.example.petcare.data.dto.Calorie.*;
 import com.example.petcare.service.Calorie.CalorieService;
 import org.springframework.stereotype.Service;
 
@@ -176,5 +173,24 @@ public class CalorieServiceImpl implements CalorieService {
         }
 
         return resertCalorieDogDTO;
+    }
+
+    @Override
+    public float catRecommandCal(RecommandCalDTO recommandCalDTO) {
+        float RER = 30 * recommandCalDTO.getWeight() + 70;
+        return recommandCalDTO.getStats()*RER;
+    }
+
+    @Override
+    public float dogRecommandCal(RecommandCalDTO recommandCalDTO) {
+        float RER;
+        if (recommandCalDTO.getWeight() < 2 && recommandCalDTO.getWeight() >= 45) {
+            RER = 30 * recommandCalDTO.getWeight() + 70;
+        } else {
+            RER = recommandCalDTO.getWeight() * 70 * 0.75f;
+        }
+
+
+        return recommandCalDTO.getStats()*RER;
     }
 }

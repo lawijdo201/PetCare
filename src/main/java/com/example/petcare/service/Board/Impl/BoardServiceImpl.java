@@ -8,6 +8,8 @@ import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,7 @@ public class BoardServiceImpl implements BoardService {
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
+                .user(SecurityContextHolder.getContext().getAuthentication().getName())
                 .build();
         boardDAO.write(board);
     }

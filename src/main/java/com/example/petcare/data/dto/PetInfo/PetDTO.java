@@ -19,4 +19,5 @@ public class PetDTO  {
     private String content;
     private String filename;
     private String filepath;
+    private String user;
 }

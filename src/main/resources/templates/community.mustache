@@ -13,11 +13,15 @@
         <thead>
             <th>글번호</th>
             <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
         </thead>
         {{#list}}
             <tr>
                 <td>{{{id}}}</td>
                 <td><a href="view?id={{id}}">{{{title}}}</a></td>
+                <td>{{content}}</td>
+                <td>{{user}}</td>
             </tr>
         {{/list}}
     </table>

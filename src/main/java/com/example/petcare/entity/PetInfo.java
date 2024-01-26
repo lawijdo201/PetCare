@@ -1,5 +1,4 @@
 package com.example.petcare.entity;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +22,6 @@ public class PetInfo {
     private String filename;
     @Column
     private String filepath;
+    @Column
+    private String user;
 }

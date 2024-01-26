@@ -2,7 +2,8 @@ package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Calorie.CalorieCatDTO;
 import com.example.petcare.data.dto.Calorie.CalorieDogDTO;
-import com.example.petcare.service.CalorieService;
+import com.example.petcare.data.dto.Calorie.RecommandCalDTO;
+import com.example.petcare.service.Calorie.CalorieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,23 @@ public class CalorieController {
     public String foodCatCalorie(CalorieCatDTO calorieCatDTO, Model model) {
         model.addAttribute("AAFCO", calorieService.catFoodCalorie(calorieCatDTO));
         return "foodCalorieCat";
+    }
+
+    @GetMapping("/recommand_calorie")
+    public String recomandCalorie(Model model) {
+        return "RecommendCalorie";
+    }
+
+    @GetMapping("/recommand_calorie/cat")
+    public String recommandCat(RecommandCalDTO recommandCalDTO, Model model) {
+        model.addAttribute("calorie", calorieService.catRecommandCal(recommandCalDTO));
+        System.out.println(calorieService.catRecommandCal(recommandCalDTO));
+        return "RecommandBMR";
+    }
+
+    @GetMapping("/recommand_calorie/dog")
+    public String recommandDog(RecommandCalDTO recommandCalDogDTO, Model model) {
+        model.addAttribute("calorie", calorieService.dogRecommandCal(recommandCalDogDTO));
+        return "RecommandBMR";
     }
 }

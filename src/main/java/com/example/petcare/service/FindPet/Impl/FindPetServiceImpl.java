@@ -6,8 +6,11 @@ import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.service.FindPet.FindPetService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class FindPetServiceImpl implements FindPetService {
     private final FindPetDAO findPetDAO;
 
@@ -29,10 +33,12 @@ public class FindPetServiceImpl implements FindPetService {
     }
 
     //글 저장
+    @Transactional
     public void saveBoard(PetDTO petDTO, MultipartFile file) {
         PetInfo petInfo = PetInfo.builder()
                 .title(petDTO.getTitle())
                 .content(petDTO.getContent())
+                .user(SecurityContextHolder.getContext().getAuthentication().getName())
                 .build();
 
         String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";
@@ -75,11 +81,13 @@ public class FindPetServiceImpl implements FindPetService {
                 Path filePath = Paths.get(resource.toURI());
                 Files.delete(filePath);
                 System.out.println("파일 삭제 완료");
-            }catch (IOException | URISyntaxException e) {
+            } catch (IOException | URISyntaxException e) {
                 System.out.println("파일 삭제 오류 발생: " + e.getMessage());
             }
         }
+
         findPetDAO.deleteBoard(id);
+        log.info("{}번째 게시물이 삭제되었습니다.", id);
     }
 
     //글 업데이트
