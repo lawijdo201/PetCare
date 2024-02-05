@@ -1,0 +1,37 @@
+{{>layout/header}}
+<h1>회원 정보 수정</h1>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+    .layout input{
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .layout textarea{
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+<div class="layout">
+    회원 정보 수정
+    <form action="/choose" method="POST">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <h3>닉네임 변경</h3>
+        <h3>당신의 역활을 정해주세요</h3>
+        <input type="radio" class="btn-check" name="role" id="option1" autocomplete="off" value="petowner">
+        <label class="btn btn-secondary" for="option1">아이 돌봐주실분 구합니다.</label>
+        <input type="radio" class="btn-check" name="role" id="option2" autocomplete="off" value="care">
+        <label class="btn btn-secondary" for="option2">아이 돌봐드려요.</label>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{{>layout/footer}}

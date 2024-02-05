@@ -1,3 +1,11 @@
 {{>layout/header}}
 <h1>MAIN</h1>
+<h3>아이 돌봐드려요</h3>
+{{#GiveCare}}
+    <h1>내용</h1>
+    <p>{{{content}}}</p>
+{{/GiveCare}}
+{{^GiveCare}}
+    아직 계시글이 존재하지 않습니다.
+{{/GiveCare}}
 {{>layout/footer}}

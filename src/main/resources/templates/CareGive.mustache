@@ -1,0 +1,152 @@
+{{>layout/header}}
+<h1>내 추가 설정</h1>
+<style>
+    .layout {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+    .layout input{
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .layout textarea{
+        width: 100%;
+        margin-top: 10px;
+        min-height: 300px;
+    }
+</style>
+<div class="layout">
+    <form action="/giveCare" method="post" enctype="multipart/form-data">
+        <h3>돌봄 가능 요일/시간</h3>
+        <input type="checkbox" class="btn-check" name="day" id="monAM" autocomplete="off" value="MonAM">
+        <label class="btn btn-outline-dark" for="monAM">월요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="TuesAM" autocomplete="off" value="TuesAM">
+        <label class="btn btn-outline-dark" for="TuesAM">화요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="wedAM" autocomplete="off" value="WedAM">
+        <label class="btn btn-outline-dark" for="wedAM">수요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="ThuAM" autocomplete="off" value="ThuAM">
+        <label class="btn btn-outline-dark" for="ThuAM">목요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="FriAM" autocomplete="off" value="FriAM">
+        <label class="btn btn-outline-dark" for="FriAM">금요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="SatAM" autocomplete="off" value="SatAM">
+        <label class="btn btn-outline-primary" for="SatAM">토요일 낮</label>
+        <input type="checkbox" class="btn-check" name="day" id="SunAM" autocomplete="off" value="SunAM">
+        <label class="btn btn-outline-danger" for="SunAM">일요일 낮</label><br>
+        <input type="checkbox" class="btn-check" name="day" id="monPM" autocomplete="off" value="MonPM">
+        <label class="btn btn-outline-dark" for="monPM">월요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="TuesPM" autocomplete="off" value="TuesPM">
+        <label class="btn btn-outline-dark" for="TuesPM">화요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="wedPM" autocomplete="off" value="WedPM">
+        <label class="btn btn-outline-dark" for="wedPM">수요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="ThuPM" autocomplete="off" value="ThuPM">
+        <label class="btn btn-outline-dark" for="ThuPM">목요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="FriPM" autocomplete="off" value="FriPM">
+        <label class="btn btn-outline-dark" for="FriPM">금요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="SatPM" autocomplete="off" value="SatPM">
+        <label class="btn btn-outline-primary" for="SatPM">토요일 밤</label>
+        <input type="checkbox" class="btn-check" name="day" id="SunPM" autocomplete="off" value="SunPM">
+        <label class="btn btn-outline-danger" for="SunPM">일요일 밤</label><br>
+        <p style="color: red; font-size: 8px;">{{#day}}{{.}}{{/day}}{{^day}}{{/day}}</p>
+
+        <h3>제공 서비스</h3>
+        <input type="checkbox" class="btn-check" name="walk" id="walk" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="walk">산책</label>
+        <input type="checkbox" class="btn-check" name="idcard" id="idcard" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="idcard">신분증 촬영</label>
+        <input type="checkbox" class="btn-check" name="homecam" id="homecam" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="homecam">홈캠 촬영</label>
+        <input type="checkbox" class="btn-check" name="meeting" id="meeting" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="meeting">사전 만남</label>
+        <input type="checkbox" class="btn-check" name="care" id="care" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="care">노견 캐어</label>
+
+        <h3>소개글</h3>
+        <textarea name="content"></textarea>
+        <p style="color: red; font-size: 8px;">{{#content}}{{.}}{{/content}}{{^content}}{{/content}}</p>
+
+        <h3>돌봄 비용</h3>
+        <h4>1시간 당 비용</h4>
+        <input type="number" name="price_perHour" value="0">
+        <p style="color: red; font-size: 8px;">{{#price_perHour}}{{.}}{{/price_perHour}}{{^price_perHour}}{{/price_perHour}}</p>
+        <h4>10분 산책 비용</h4>
+        <input type="number" name="price_walk1" value="0">
+        <p style="color: red; font-size: 8px;">{{#price_walk1}}{{.}}{{/price_walk1}}{{^price_walk1}}{{/price_walk1}}</p>
+        <h4>30분 산책 비용</h4>
+        <input type="number" name="price_walk2" value="0">
+        <p style="color: red; font-size: 8px;">{{#price_walk2}}{{.}}{{/price_walk2}}{{^price_walk2}}{{/price_walk2}}</p>
+        <h4>1시간 산책 비용</h4>
+        <input type="number" name="price_walk3" value="0">
+        <p style="color: red; font-size: 8px;">{{#price_walk3}}{{.}}{{/price_walk3}}{{^price_walk3}}{{/price_walk3}}</p>
+        <h4>2시간 산책 비용</h4>
+        <input type="number" name="price_walk4" value="0">
+        <p style="color: red; font-size: 8px;">{{#price_walk4}}{{.}}{{/price_walk4}}{{^price_walk4}}{{/price_walk4}}</p>
+
+        <h3>주소</h3>
+        <input type="text" id="postcode" name="postcode" placeholder="우편번호">
+        <button type="button" onclick="execDaumPostcode()" class="btn btn-outline-secondary">우편번호 찾기</button>
+        <p style="color: red; font-size: 8px;">{{#postcode}}{{.}}{{/postcode}}{{^postcode}}{{/postcode}}</p>
+        <input type="text" id="address" name="address" placeholder="주소">
+        <p style="color: red; font-size: 8px;">{{#address}}{{.}}{{/address}}{{^address}}{{/address}}</p><br>
+        <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+        <p style="color: red; font-size: 8px;">{{#detailAddress}}{{.}}{{/detailAddress}}{{^detailAddress}}{{/detailAddress}}</p>
+        <input type="text" id="extraAddress" placeholder="참고항목" readonly>
+
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            function execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        var addr = ''; // 주소 변수
+                        var extraAddr = ''; // 참고항목 변수
+
+                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                            addr = data.roadAddress;
+                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                            addr = data.jibunAddress;
+                        }
+
+                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                        if(data.userSelectedType === 'R'){
+                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                extraAddr += data.bname;
+                            }
+                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                            if(data.buildingName !== '' && data.apartment === 'Y'){
+                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                            }
+                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                            if(extraAddr !== ''){
+                                extraAddr = ' (' + extraAddr + ')';
+                            }
+                            // 조합된 참고항목을 해당 필드에 넣는다.
+                            document.getElementById("extraAddress").value = extraAddr;
+
+                        } else {
+                            document.getElementById("extraAddress").value = '';
+                        }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('postcode').value = data.zonecode;
+                        document.getElementById("address").value = addr;
+                        // 커서를 상세주소 필드로 이동한다.
+                        document.getElementById("detailAddress").focus();
+                    }
+                }).open();
+            }
+        </script>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <button type="submit" class="btn btn-outline-primary">저장</button>
+    </form>
+</div>
+{{>layout/footer}}

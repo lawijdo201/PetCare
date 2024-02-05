@@ -1,0 +1,14 @@
+{{>layout/header}}
+{{#Message}}
+    <script>
+        top.alert('{{message}}');
+        top.location.href='{{url}}';
+    </script>
+{{/Message}}
+{{^Message}}
+    <script>
+        top.alert("잘못된 접근입니다..")
+        top.location.href='/';
+    </script>
+{{/Message}}
+{{>layout/footer}}
