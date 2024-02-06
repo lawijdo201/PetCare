@@ -19,6 +19,8 @@ public class Board {
     private String title;
     @Column
     private String content;
-    @Column
-    private String user;
+
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private UserEntity userEntity;
 }

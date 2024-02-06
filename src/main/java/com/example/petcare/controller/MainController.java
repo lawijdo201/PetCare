@@ -4,6 +4,7 @@ import com.example.petcare.data.dto.PetCare.GiveCareDTO;
 import com.example.petcare.data.dto.PetCare.RoleDTO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
+import com.example.petcare.entity.UserEntity;
 import com.example.petcare.service.PetCareService.PetCareService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -82,7 +83,7 @@ public class MainController {
             System.out.println("checked");
 
             PetCare petCare = PetCare.builder()
-                    .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                    //.username(SecurityContextHolder.getContext().getAuthentication().getName())
                     .role(roleDTO.getRole())
                     .build();
             petCareService.saveRole(petCare);
@@ -118,7 +119,7 @@ public class MainController {
 
         //2. db에 저장
         UserCareService userCareService = UserCareService.builder()
-                .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                //.username(SecurityContextHolder.getContext().getAuthentication().getName())
                 .day(giveCareDTO.getDay())
                 .walk(giveCareDTO.getWalk())
                 .idcard(giveCareDTO.getIdcard())

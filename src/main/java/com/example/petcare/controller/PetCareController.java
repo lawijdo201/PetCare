@@ -37,7 +37,7 @@ public class PetCareController {
             System.out.println("checked");
 
             PetCare petCare = PetCare.builder()
-                    .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                    //.username(SecurityContextHolder.getContext().getAuthentication().getName())
                     .role(roleDTO.getRole())
                     .build();
             petCareService.saveRole(petCare);

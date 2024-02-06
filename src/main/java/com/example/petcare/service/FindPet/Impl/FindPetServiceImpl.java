@@ -38,7 +38,7 @@ public class FindPetServiceImpl implements FindPetService {
         PetInfo petInfo = PetInfo.builder()
                 .title(petDTO.getTitle())
                 .content(petDTO.getContent())
-                .user(SecurityContextHolder.getContext().getAuthentication().getName())
+                //.user(SecurityContextHolder.getContext().getAuthentication().getName())
                 .build();
 
         String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";

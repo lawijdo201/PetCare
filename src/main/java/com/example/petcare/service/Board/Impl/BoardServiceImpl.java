@@ -25,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .user(SecurityContextHolder.getContext().getAuthentication().getName())
+                //.user(SecurityContextHolder.getContext().getAuthentication().getName())
                 .build();
         boardDAO.write(board);
     }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity//Entity 설정
 @Data
 @NoArgsConstructor
@@ -19,12 +21,33 @@ public class UserEntity {
     @Column(unique = true)
     private String username;
 
-    @Column
     private String pw;
 
     @Column(unique = true)
     private String email;
 
-    @Column
     private String role;
+
+    @OneToMany(mappedBy="userEntity")
+    private List<Board> boards;
+
+    @OneToOne
+    private PetCare petCare;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<PetInfo> petInfoLists;
+
+    @OneToOne
+    private UserCareService userCareService;
+
+    public void addBoard(Board board) {
+        board.setUserEntity(this);  //주인 설정
+        getBoards().add(board);
+    }
+
+    public void addPetInfo(PetInfo petInfo) {
+        petInfo.setUserEntity(this);  //주인 설정
+        getPetInfoLists().add(petInfo);
+    }
+
 }

@@ -27,7 +27,7 @@ public class PetCareDAOImpl implements PetCareDAO {
 
     @Override
     public String findRole(String username) {
-        return petCareRepository.findRole(username);
+        return null;//petCareRepository.findRole(username);
     }
 
     @Override

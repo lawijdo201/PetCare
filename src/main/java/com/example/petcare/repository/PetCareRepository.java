@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface PetCareRepository extends JpaRepository<PetCare, String> {
-    @Query(value = "SELECT p.role FROM PetCare p WHERE p.username = :username")
-    String findRole(@Param("username") String username);
+/*    @Query(value = "SELECT p.role FROM PetCare p, WHERE p.")
+    String findRole(@Param("username") String username);*/
 
     boolean existsByUsername(String username);
 }

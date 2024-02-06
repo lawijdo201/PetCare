@@ -22,6 +22,8 @@ public class PetInfo {
     private String filename;
     @Column
     private String filepath;
-    @Column
-    private String user;
+
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private UserEntity userEntity;
 }
