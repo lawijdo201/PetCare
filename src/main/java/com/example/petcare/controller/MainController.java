@@ -46,7 +46,7 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/choose")
+    /*@GetMapping("/choose")
     public String chooseRole(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         //세션의 사용자 이름이 역활 지정이 안되있으면 역활 지정 페이지로 이동
@@ -143,10 +143,10 @@ public class MainController {
 
     @GetMapping("/upload")
     public String upload(Model model) {
-        /*글 업로드*/
+        *//*글 업로드*//*
 
 
 
         return "UserInfo";
-    }
+    }*/
 }

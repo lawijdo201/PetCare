@@ -3,10 +3,13 @@ package com.example.petcare.data.dao;
 
 import com.example.petcare.entity.UserEntity;
 
+import java.util.Optional;
+
 public interface UserDAO {
+
     void saveMember(UserEntity userEntity);
 
-    boolean findMember(String id);
+    UserEntity findMember(String username);
 
     void deleteMember(String id);
 
@@ -15,5 +18,5 @@ public interface UserDAO {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
 
-    void updateUserPassword(String pw, String id);
+
 }

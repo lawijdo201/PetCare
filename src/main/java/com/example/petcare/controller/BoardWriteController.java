@@ -1,8 +1,8 @@
 package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.Board.BoardDTO;
-import com.example.petcare.entity.Board;
 import com.example.petcare.service.Board.BoardService;
+import com.example.petcare.service.User.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +26,11 @@ import java.util.Map;
 @RequestMapping("/community")
 public class BoardWriteController {
     private final BoardService boardService;
+    private final UserService userService;
 
-    public BoardWriteController(BoardService boardService) {
+    public BoardWriteController(BoardService boardService, UserService userService) {
         this.boardService = boardService;
+        this.userService = userService;
     }
 
 
@@ -36,7 +38,6 @@ public class BoardWriteController {
     @GetMapping("/list")
     public String showBoard(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         Page list = boardService.getBoardList(pageable);
-
         int CurrentPage = pageable.getPageNumber();
 
         List<Integer> num = new ArrayList<>();
@@ -64,7 +65,7 @@ public class BoardWriteController {
 
     @PostMapping("/writedo")
     public String writeDo(BoardDTO boardDTO) {
-        boardService.saveBoard(boardDTO);
+        boardService.saveBoard(boardDTO, SecurityContextHolder.getContext().getAuthentication().getName());
         return "redirect:/community/list";
     }
 

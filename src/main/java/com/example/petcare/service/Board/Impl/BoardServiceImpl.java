@@ -1,6 +1,7 @@
 package com.example.petcare.service.Board.Impl;
 
 import com.example.petcare.data.dao.BoardDAO;
+import com.example.petcare.data.dao.UserDAO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.Board.NearByBoardDTO;
@@ -8,24 +9,25 @@ import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService {
     private final BoardDAO boardDAO;
+    private final UserDAO userDAO;
 
-    public BoardServiceImpl(BoardDAO boardDAO) {
+    public BoardServiceImpl(BoardDAO boardDAO, UserDAO userDAO) {
         this.boardDAO = boardDAO;
+        this.userDAO = userDAO;
     }
 
     //글 저장
-    public void saveBoard(BoardDTO boardDTO) {
+    @Override
+    public void saveBoard(BoardDTO boardDTO, String username) {
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                //.user(SecurityContextHolder.getContext().getAuthentication().getName())
+                .userEntity(userDAO.findMember(username))
                 .build();
         boardDAO.write(board);
     }
@@ -34,6 +36,7 @@ public class BoardServiceImpl implements BoardService {
     public Page<Board> getBoardList(Pageable pageable) {
         return boardDAO.getBoardList(pageable);
     }
+
 
     //글 내용 불러오기
     public Board getBoard(Integer id){

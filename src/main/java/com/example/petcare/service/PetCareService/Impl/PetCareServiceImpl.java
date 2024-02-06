@@ -1,6 +1,7 @@
 package com.example.petcare.service.PetCareService.Impl;
 
 import com.example.petcare.data.dao.PetCareDAO;
+import com.example.petcare.data.dao.UserDAO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.service.PetCareService.PetCareService;
@@ -11,9 +12,11 @@ import java.util.List;
 @Service
 public class PetCareServiceImpl implements PetCareService {
     private final PetCareDAO petCareDAO;
+    private final UserDAO userDAO;
 
-    public PetCareServiceImpl(PetCareDAO petCareDAO) {
+    public PetCareServiceImpl(PetCareDAO petCareDAO, UserDAO userDAO) {
         this.petCareDAO = petCareDAO;
+        this.userDAO = userDAO;
     }
 
     @Override
@@ -23,13 +26,14 @@ public class PetCareServiceImpl implements PetCareService {
 
     @Override
     public String findRole(String username) {
-        String role = petCareDAO.findRole(username);
-        return role;
+        //String role = petCareDAO.findRole(username);
+        //return role;
+        return "petowner";
     }
 
     @Override
     public boolean existByusername(String username){
-        return petCareDAO.existByusername(username);
+        return userDAO.existsByUsername(username);
     }
 
     @Override
@@ -39,7 +43,7 @@ public class PetCareServiceImpl implements PetCareService {
 
     @Override
     public boolean existByusernameFromUserCareService(String username){
-        return petCareDAO.existByUsernameFromUserCareService(username);
+        return false;//petCareDAO.existByUsernameFromUserCareService(username);
     }
 
     @Override

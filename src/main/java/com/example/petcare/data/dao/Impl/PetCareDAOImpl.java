@@ -28,11 +28,13 @@ public class PetCareDAOImpl implements PetCareDAO {
     @Override
     public String findRole(String username) {
         return null;//petCareRepository.findRole(username);
+
     }
 
     @Override
     public boolean existByusername(String username) {
-        return petCareRepository.existsByUsername(username);
+        //return petCareRepository.existsByUsername(username);
+        return false;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class PetCareDAOImpl implements PetCareDAO {
 
     @Override
     public boolean existByUsernameFromUserCareService(String username) {
-        return userCareServiceRepository.existsByUsername(username);
+        return false;//userCareServiceRepository.existsByUsername(username);
     }
 
     @Override

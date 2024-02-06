@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
-    void saveBoard(BoardDTO boardDTO);
+    void saveBoard(BoardDTO boardDTO, String username);
     public Page<Board> getBoardList(Pageable pageable);
     public Board getBoard(Integer id);
     public NearByBoardDTO getNearByBoard(Integer id);
