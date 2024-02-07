@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserEntity findMember(String username) {
+    public UserEntity findByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username);
         return userEntity;
     }

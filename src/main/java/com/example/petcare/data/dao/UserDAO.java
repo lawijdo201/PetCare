@@ -9,7 +9,7 @@ public interface UserDAO {
 
     void saveMember(UserEntity userEntity);
 
-    UserEntity findMember(String username);
+    UserEntity findByUsername(String username);
 
     void deleteMember(String id);
 

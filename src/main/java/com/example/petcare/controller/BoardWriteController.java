@@ -59,12 +59,12 @@ public class BoardWriteController {
     }
     //글 작성
     @RequestMapping("/write")
-    public String writeBoard() {
+    public String writeBoard(Model model) {
         return "write";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(BoardDTO boardDTO) {
+    public String writeDo(BoardDTO boardDTO, Model model) {
         boardService.saveBoard(boardDTO, SecurityContextHolder.getContext().getAuthentication().getName());
         return "redirect:/community/list";
     }

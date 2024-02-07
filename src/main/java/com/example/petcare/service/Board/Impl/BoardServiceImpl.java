@@ -5,6 +5,7 @@ import com.example.petcare.data.dao.UserDAO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.Board.NearByBoardDTO;
+import com.example.petcare.entity.UserEntity;
 import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -23,12 +24,18 @@ public class BoardServiceImpl implements BoardService {
 
     //글 저장
     @Override
+    @Transactional
     public void saveBoard(BoardDTO boardDTO, String username) {
+        System.out.println("username"+username+"and"+userDAO.findByUsername(username));
+        UserEntity userEntity = userDAO.findByUsername(username);
+        System.out.println(userEntity);
+
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .userEntity(userDAO.findMember(username))
+                .userEntity(userEntity)
                 .build();
+        userEntity.addBoard(board);
         boardDAO.write(board);
     }
 

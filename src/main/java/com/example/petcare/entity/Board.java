@@ -19,7 +19,7 @@ public class Board {
     private int id;
     private String title;
     private String content;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
     private LocalDateTime time;
