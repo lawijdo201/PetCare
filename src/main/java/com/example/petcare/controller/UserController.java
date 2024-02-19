@@ -1,5 +1,6 @@
 package com.example.petcare.controller;
 
+import com.example.petcare.data.dto.AlertMessage.AlertDTO;
 import com.example.petcare.data.dto.User.UserDTO;
 import com.example.petcare.service.User.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,13 +41,16 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
 
-        return "redirect:/";
+        AlertDTO alertDTO = new AlertDTO("로그아웃 되었습니다.","/");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
+        //return "redirect:/";
     }
 
     @GetMapping("/join")
@@ -66,16 +70,13 @@ public class UserController {
                 System.out.println("Message: " + error.getDefaultMessage());
                 errorMap.put(error.getField(), error.getDefaultMessage());
             }
-            System.out.println("redirect");
             return "joinPage";
+        }else {
+            userService.join(userDTO);
+            AlertDTO alertDTO = new AlertDTO("회원가입이 완료되었습니다.","login");
+            model.addAttribute("Message", alertDTO);
+            return "Alert";
         }
-
-        //2. 회원가입
-       if (userService.join(userDTO)) {
-            return "login";
-        }
-
-        return "redirect:/";
     }
 
     @PostMapping("/checkDuplicateUsername")

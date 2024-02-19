@@ -4,28 +4,34 @@ import com.example.petcare.data.dao.BoardDAO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.Board.NearByBoardDTO;
+import com.example.petcare.entity.UserEntity;
+import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
     private final BoardDAO boardDAO;
+    private final UserRepository userRepository;
 
-    public BoardServiceImpl(BoardDAO boardDAO) {
+    public BoardServiceImpl(BoardDAO boardDAO, UserRepository userRepository) {
         this.boardDAO = boardDAO;
+        this.userRepository = userRepository;
     }
 
     //글 저장
-    public void saveBoard(BoardDTO boardDTO) {
+    public void saveBoard(BoardDTO boardDTO, String usesrname) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(usesrname);
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .user(SecurityContextHolder.getContext().getAuthentication().getName())
+                .userEntity(userEntity.get())
                 .build();
         boardDAO.write(board);
     }
@@ -50,28 +56,13 @@ public class BoardServiceImpl implements BoardService {
 
     //글 업데이트
     @Transactional
-    public void updateBoard(BoardDTO boardDTO){
-
-        //DTO -> Entity
-        Board NewBoard = Board.builder()
-                .title(boardDTO.getTitle())
-                .content(boardDTO.getContent())
-                .build();
+    public void updateBoard(BoardDTO boardDTO, Integer id){
 
         //Entity를 영속상태로 가져옴
-        Board OldBoard = boardDAO.getBoard(NewBoard.getId());
-        System.out.println("기존의 Board");
-        System.out.println(OldBoard.getId());
-        System.out.println(OldBoard.getTitle());
-        System.out.println(OldBoard.getContent());
-
-        System.out.println("새로운 Board");
-        System.out.println(NewBoard.getId());
-        System.out.println(NewBoard.getTitle());
-        System.out.println(NewBoard.getContent());
+        Board OldBoard = boardDAO.getBoard(id);
 
         //Dirty Checking
-        OldBoard.setTitle(NewBoard.getTitle());
-        OldBoard.setContent(NewBoard.getContent());
+        OldBoard.setTitle(boardDTO.getTitle());
+        OldBoard.setContent(boardDTO.getContent());
     }
 }

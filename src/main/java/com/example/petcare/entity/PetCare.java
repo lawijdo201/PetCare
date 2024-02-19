@@ -15,8 +15,8 @@ public class PetCare {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
-    private String username;
-    @Column
     private String role;
+    @OneToOne
+    @JoinColumn
+    private UserEntity userEntity;
 }

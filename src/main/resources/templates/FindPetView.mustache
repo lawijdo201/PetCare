@@ -5,13 +5,13 @@
     <h1>내용</h1>
     <p>{{content}}</p>
     <h1>작성자</h1>
-    <p>{{user}}</p>
+    <p>{{userEntity.username}}</p>
     <h1>사진</h1>
     <img src="{{filepath}}" alt="Server Image">
     <div>
         <button onclick="goList()">글 목록</button>
-        <button onclick="deleteId({{id}}, '{{user}}')">글 삭제</button>
-        <button onclick="modifyBoard({{id}}, '{{user}}')">글 수정</button>
+        <button onclick="deleteId({{id}}, '{{userEntity.username}}')">글 삭제</button>
+        <button onclick="modifyBoard({{id}}, '{{userEntity.username}}')">글 수정</button>
     </div>
 {{/petInfo}}
 
@@ -48,7 +48,6 @@
         }
     }
     function modifyBoard(id, user){
-        console.log(id, user)
         window.location.href = 'modify?id=' + id + "&user=" + user;
     }
 </script>

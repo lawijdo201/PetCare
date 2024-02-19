@@ -6,6 +6,7 @@ import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.repository.PetCareRepository;
 import com.example.petcare.repository.UserCareServiceRepository;
+import com.example.petcare.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.List;
 public class PetCareDAOImpl implements PetCareDAO {
     private final PetCareRepository petCareRepository;
     private final UserCareServiceRepository userCareServiceRepository;
+    private final UserRepository userRepository;
 
-    public PetCareDAOImpl(PetCareRepository petCareRepository, UserCareServiceRepository userCareServiceRepository) {
+    public PetCareDAOImpl(PetCareRepository petCareRepository, UserCareServiceRepository userCareServiceRepository, UserRepository userRepository) {
         this.petCareRepository = petCareRepository;
         this.userCareServiceRepository = userCareServiceRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class PetCareDAOImpl implements PetCareDAO {
 
     @Override
     public boolean existByusername(String username) {
-        return petCareRepository.existsByUsername(username);
+        return userRepository.existsByUsername(username);
     }
 
     @Override

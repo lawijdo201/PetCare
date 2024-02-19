@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean join(UserDTO userDTO) {
+    public void join(UserDTO userDTO) {
 
         //회원가입
         UserEntity userEntity = UserEntity.builder()
@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
         userDAO.saveMember(userEntity);
         log.info("{} 아이디에 대해 회원가입이 완료되었습니다.", userDTO.getUsername());
-    return true;
     }
 
 

@@ -16,4 +16,5 @@ public interface UserDAO {
     boolean existsByEmail(String email);
 
     void updateUserPassword(String pw, String id);
+
 }

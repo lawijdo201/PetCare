@@ -4,6 +4,7 @@ import com.example.petcare.data.dto.PetCare.GiveCareDTO;
 import com.example.petcare.data.dto.PetCare.RoleDTO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
+import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.PetCareService.PetCareService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +47,7 @@ public class MainController {
     public String chooseRole(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         //세션의 사용자 이름이 역활 지정이 안되있으면 역활 지정 페이지로 이동
-        if (!petCareService.existByusername(username)) {
+        if (petCareService.getUserEntity(SecurityContextHolder.getContext().getAuthentication().getName()).getPetCare()==null) {
             return "PetCareRole";
         }
 
@@ -82,7 +80,7 @@ public class MainController {
             System.out.println("checked");
 
             PetCare petCare = PetCare.builder()
-                    .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                    .userEntity(petCareService.getUserEntity(SecurityContextHolder.getContext().getAuthentication().getName()))
                     .role(roleDTO.getRole())
                     .build();
             petCareService.saveRole(petCare);
@@ -116,9 +114,10 @@ public class MainController {
         log.info(giveCareDTO.getWalk());        //null or True
         log.info(giveCareDTO.getIdcard());
 
+
         //2. db에 저장
         UserCareService userCareService = UserCareService.builder()
-                .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                .userEntity(petCareService.getUserEntity(SecurityContextHolder.getContext().getAuthentication().getName()))
                 .day(giveCareDTO.getDay())
                 .walk(giveCareDTO.getWalk())
                 .idcard(giveCareDTO.getIdcard())

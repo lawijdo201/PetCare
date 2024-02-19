@@ -19,12 +19,13 @@ public class UserEntity {
     @Column(unique = true)
     private String username;
 
-    @Column
     private String pw;
 
     @Column(unique = true)
     private String email;
 
-    @Column
     private String role;
+
+    @OneToOne(mappedBy = "userEntity")
+    private PetCare petCare;
 }

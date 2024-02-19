@@ -2,10 +2,10 @@ package com.example.petcare.controller;
 
 import com.example.petcare.data.dto.PetCare.RoleDTO;
 import com.example.petcare.entity.PetCare;
+import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.PetCareService.PetCareService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class PetCareController {
     private final PetCareService petCareService;
+    private final UserRepository userRepository;
 
-    public PetCareController(PetCareService petCareService) {
+    public PetCareController(PetCareService petCareService, UserRepository userRepository) {
         this.petCareService = petCareService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/choose")
@@ -37,7 +39,7 @@ public class PetCareController {
             System.out.println("checked");
 
             PetCare petCare = PetCare.builder()
-                    .username(SecurityContextHolder.getContext().getAuthentication().getName())
+                    .userEntity(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get())
                     .role(roleDTO.getRole())
                     .build();
             petCareService.saveRole(petCare);

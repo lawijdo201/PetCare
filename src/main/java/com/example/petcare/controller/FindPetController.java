@@ -1,5 +1,6 @@
 package com.example.petcare.controller;
 
+import com.example.petcare.data.dto.AlertMessage.AlertDTO;
 import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.service.FindPet.FindPetService;
@@ -65,7 +66,9 @@ public class FindPetController {
     @PostMapping("/writedo")
     public String writeDo(PetDTO petDTO, MultipartFile file, Model model) {
         findPetService.saveBoard(petDTO, file);
-        return "redirect:/findPet/list";
+        AlertDTO alertDTO = new AlertDTO("글이 작성되었습니다.","list");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
     }
 
     //글 보기
@@ -84,23 +87,28 @@ public class FindPetController {
             findPetService.deleteBoard(id);
         } else {
             //오류 발생
-            log.warn("{}사용자의 게시물이 아닙니다.", user);
+            AlertDTO alertDTO = new AlertDTO("사용자의 게시물이 아닙니다.","list");
+            model.addAttribute("Message", alertDTO);
+            return "Alert";
         }
-        return "redirect:/findPet/list";
+        AlertDTO alertDTO = new AlertDTO("글이 삭제되었습니다.","/community/list");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
     }
 
     //글 수정
     @GetMapping("/modify")
-    public String modifyBoard(@RequestParam("id") Integer id, @RequestParam("user") String user, Model model) {
+    public String modifyBoard(Integer id, String user, Model model) {
         //작성자인지 체크
         if (user.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
             model.addAttribute("petInfo", findPetService.getBoard(id));
             return "FindPetModify";
         } else {
             //오류 발생
-            log.warn("{}사용자의 게시물이 아닙니다.", user);
+            AlertDTO alertDTO = new AlertDTO("사용자의 게시물이 아닙니다.","list");
+            model.addAttribute("Message", alertDTO);
+            return "Alert";
         }
-        return "redirect:/findPet/list";
     }
     @PostMapping("/modifydo")
     public String modifyDo(PetInfo NewPetInfo, MultipartFile file, Model model){

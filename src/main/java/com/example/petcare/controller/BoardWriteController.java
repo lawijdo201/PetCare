@@ -1,5 +1,6 @@
 package com.example.petcare.controller;
 
+import com.example.petcare.data.dto.AlertMessage.AlertDTO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.service.Board.BoardService;
@@ -58,14 +59,16 @@ public class BoardWriteController {
     }
     //글 작성
     @RequestMapping("/write")
-    public String writeBoard() {
+    public String writeBoard(Model model) {
         return "write";
     }
 
     @PostMapping("/writedo")
-    public String writeDo(BoardDTO boardDTO) {
-        boardService.saveBoard(boardDTO);
-        return "redirect:/community/list";
+    public String writeDo(Model model, BoardDTO boardDTO) {
+        boardService.saveBoard(boardDTO, SecurityContextHolder.getContext().getAuthentication().getName());
+        AlertDTO alertDTO = new AlertDTO("글이 작성되었습니다.","list");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
     }
 
     //글 보기
@@ -84,9 +87,13 @@ public class BoardWriteController {
             boardService.deleteBoard(id);
         } else {
             //오류 발생
-            log.warn("{}사용자의 게시물이 아닙니다.", user);
+            AlertDTO alertDTO = new AlertDTO("사용자의 게시물이 아닙니다.","list");
+            model.addAttribute("Message", alertDTO);
+            return "Alert";
         }
-        return "redirect:/community/list";
+        AlertDTO alertDTO = new AlertDTO("글이 삭제되었습니다.","/community/list");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
     }
 
     //글 수정
@@ -98,13 +105,15 @@ public class BoardWriteController {
             return "boardModify";
         } else {
             //오류 발생
-            log.warn("{}사용자의 게시물이 아닙니다.", user);
+            AlertDTO alertDTO = new AlertDTO("사용자의 게시물이 아닙니다.","list");
+            model.addAttribute("Message", alertDTO);
+            return "Alert";
         }
-        return "boardModify";
     }
     @PostMapping("/modifydo")
-    public String modifyDo(BoardDTO NewBoard){
-        boardService.updateBoard(NewBoard);
+    public String modifyDo(BoardDTO boardDTO, Integer id){
+        System.out.println(id);
+        boardService.updateBoard(boardDTO, id);
         return "redirect:/community/list";
     }
 }

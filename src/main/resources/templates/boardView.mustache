@@ -6,8 +6,8 @@
     <p>{{{content}}}</p>
     <div>
         <button onclick="goList()">글 목록</button>
-        <button onclick="deleteId({{id}}, '{{user}}')">글 삭제</button>
-        <button onclick="modifyBoard({{id}}, '{{user}}')">글 수정</button>
+        <button onclick="deleteId({{id}}, '{{userEntity.username}}')">글 삭제</button>
+        <button onclick="modifyBoard({{id}}, '{{userEntity.username}}')">글 수정</button>
     </div>
 {{/board}}
 

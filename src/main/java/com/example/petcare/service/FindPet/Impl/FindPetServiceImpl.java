@@ -4,12 +4,12 @@ import com.example.petcare.data.dao.FindPetDAO;
 import com.example.petcare.data.dto.Board.NearByBoardDTO;
 import com.example.petcare.data.dto.PetInfo.PetDTO;
 import com.example.petcare.entity.PetInfo;
+import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.FindPet.FindPetService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,9 +27,11 @@ import java.util.UUID;
 @Slf4j
 public class FindPetServiceImpl implements FindPetService {
     private final FindPetDAO findPetDAO;
+    private final UserRepository userRepository;
 
-    public FindPetServiceImpl(FindPetDAO findPetDAO) {
+    public FindPetServiceImpl(FindPetDAO findPetDAO, UserRepository userRepository) {
         this.findPetDAO = findPetDAO;
+        this.userRepository = userRepository;
     }
 
     //글 저장
@@ -38,7 +40,7 @@ public class FindPetServiceImpl implements FindPetService {
         PetInfo petInfo = PetInfo.builder()
                 .title(petDTO.getTitle())
                 .content(petDTO.getContent())
-                .user(SecurityContextHolder.getContext().getAuthentication().getName())
+                .userEntity(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get())
                 .build();
 
         String filePath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\files";
@@ -95,15 +97,6 @@ public class FindPetServiceImpl implements FindPetService {
     public void updateBoard(PetInfo NewPetInfo, MultipartFile file){
         //Entity를 영속상태로 가져옴
         PetInfo OldPetInfo = findPetDAO.getBoard(NewPetInfo.getId());
-        System.out.println("기존의 Board");
-        System.out.println(OldPetInfo.getId());
-        System.out.println(OldPetInfo.getTitle());
-        System.out.println(OldPetInfo.getContent());
-
-        System.out.println("새로운 Board");
-        System.out.println(NewPetInfo.getId());
-        System.out.println(NewPetInfo.getTitle());
-        System.out.println(NewPetInfo.getContent());
 
         //Dirty Checking
         OldPetInfo.setTitle(NewPetInfo.getTitle());

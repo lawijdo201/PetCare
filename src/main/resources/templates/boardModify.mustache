@@ -20,10 +20,11 @@
     }
 </style>
 <div class="layout">
-    <form action="/community/modifydo?id={{board.id}}" method="post">
+    <form action="/community/modifydo" method="post">
         <input name="title" type="text" value="{{board.title}}"/>
         <textarea name="content">{{board.content}}</textarea>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        <input type="hidden" type="number" name="id" value="{{board.id}}">
         <button type="submit">저장</button>
     </form>
 </div>

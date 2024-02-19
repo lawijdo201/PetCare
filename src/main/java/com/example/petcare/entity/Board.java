@@ -15,10 +15,9 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String title;
-    @Column
     private String content;
-    @Column
-    private String user;
+    @ManyToOne
+    @JoinColumn
+    private UserEntity userEntity;
 }
