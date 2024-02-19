@@ -28,8 +28,7 @@ public class PetCareServiceImpl implements PetCareService {
 
     @Override
     public String findRole(String username) {
-        String role = petCareDAO.findRole(username);
-        return role;
+        return petCareDAO.findRole(username);
     }
 
     @Override
@@ -49,6 +48,7 @@ public class PetCareServiceImpl implements PetCareService {
 
     @Override
     public boolean existByusernameFromUserCareService(String username){
+
         return petCareDAO.existByUsernameFromUserCareService(username);
     }
 

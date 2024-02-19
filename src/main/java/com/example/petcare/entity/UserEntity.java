@@ -28,4 +28,7 @@ public class UserEntity {
 
     @OneToOne(mappedBy = "userEntity")
     private PetCare petCare;
+
+    @OneToOne(mappedBy = "userEntity")
+    private UserCareService userCareService;
 }

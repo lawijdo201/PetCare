@@ -45,7 +45,11 @@ public class PetCareDAOImpl implements PetCareDAO {
 
     @Override
     public boolean existByUsernameFromUserCareService(String username) {
-        return userCareServiceRepository.existsByUsername(username);
+        if (userRepository.findByUsername(username).get().getUserCareService() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
