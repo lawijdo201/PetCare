@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FindPetRepository extends JpaRepository<PetInfo, Integer> {
-    @Query(value = "SELECT new com.example.petcare.data.dto.Board.NearByBoardDTO(b.id, COALESCE((SELECT MAX(b2.id) FROM PetInfo b2 WHERE b2.id < b.id),0), COALESCE((SELECT MIN(b3.id) FROM PetInfo b3 WHERE b3.id > b.id),9999999)) FROM PetInfo b WHERE b.id = :pk")
+    @Query(value = "SELECT new com.example.petcare.data.dto.Board.NearByBoardDTO(b.id, COALESCE((SELECT MAX(b2.id) FROM Board b2 WHERE b2.id < b.id),0), COALESCE((SELECT MIN(b3.id) FROM Board b3 WHERE b3.id > b.id),9999999)) FROM Board b WHERE b.id = :pk")
     NearByBoardDTO selectIdWithBidAndAid(@Param("pk") Integer pk);
     List<PetInfo> findByTitleContaining(String keyword);
 

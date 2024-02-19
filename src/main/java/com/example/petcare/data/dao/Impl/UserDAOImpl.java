@@ -5,6 +5,8 @@ import com.example.petcare.entity.UserEntity;
 import com.example.petcare.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserDAOImpl implements UserDAO {
     private final UserRepository userRepository;
@@ -13,14 +15,16 @@ public class UserDAOImpl implements UserDAO {
         this.userRepository = userRepository;
     }
 
+
     @Override
     public void saveMember(UserEntity userEntity) {
         userRepository.save(userEntity);
     }
 
     @Override
-    public boolean findMember(String name) {
-        return false;
+    public UserEntity findByUsername(String username) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        return userEntity;
     }
 
     @Override
@@ -48,8 +52,4 @@ public class UserDAOImpl implements UserDAO {
         return true;
     }
 
-    @Override
-    public void updateUserPassword(String pw, String id) {
-
-    }
 }
