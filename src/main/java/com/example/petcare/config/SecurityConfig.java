@@ -77,6 +77,7 @@ public class SecurityConfig {
                                         .requestMatchers("/logout").hasAnyRole("USER")
                                         .requestMatchers("/main").hasAnyRole("USER")
                                         .requestMatchers("/calorie/recommand_calorie/cat").permitAll()
+                                        .requestMatchers("/view").permitAll()
                                         .anyRequest().authenticated());
 
 

@@ -1,10 +1,20 @@
 {{>layout/header}}
 <h1>MAIN</h1>
 <h3>아이 돌봐드려요</h3>
-{{#GiveCare}}
-    <h1>내용</h1>
-    <p>{{{content}}}</p>
-{{/GiveCare}}
+<table>
+    <thead>
+    <th>날짜</th>
+    <th>주소</th>
+    <th>작성자</th>
+    </thead>
+    {{#GiveCare}}
+        <tr>
+            <td><a href="view?id={{id}}">{{createAt}}</a></td>
+            <td><a href="view?id={{id}}">{{address}}</a></td>
+            <td><a href="view?id={{id}}">{{userEntity.username}}</a></td>
+        </tr>
+    {{/GiveCare}}
+</table>
 {{^GiveCare}}
     아직 계시글이 존재하지 않습니다.
 {{/GiveCare}}

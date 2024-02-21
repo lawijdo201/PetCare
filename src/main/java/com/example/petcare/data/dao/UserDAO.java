@@ -6,7 +6,7 @@ import com.example.petcare.entity.UserEntity;
 public interface UserDAO {
     void saveMember(UserEntity userEntity);
 
-    boolean findMember(String id);
+    UserEntity findByUsername(String username);
 
     void deleteMember(String id);
 
@@ -14,7 +14,5 @@ public interface UserDAO {
 
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-
-    void updateUserPassword(String pw, String id);
 
 }

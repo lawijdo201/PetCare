@@ -1,6 +1,7 @@
 package com.example.petcare.service.Board.Impl;
 
 import com.example.petcare.data.dao.BoardDAO;
+import com.example.petcare.data.dao.UserDAO;
 import com.example.petcare.data.dto.Board.BoardDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.data.dto.Board.NearByBoardDTO;
@@ -10,7 +11,6 @@ import com.example.petcare.service.Board.BoardService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,20 +18,19 @@ import java.util.Optional;
 @Service
 public class BoardServiceImpl implements BoardService {
     private final BoardDAO boardDAO;
-    private final UserRepository userRepository;
+    private final UserDAO userDAO;
 
-    public BoardServiceImpl(BoardDAO boardDAO, UserRepository userRepository) {
+    public BoardServiceImpl(BoardDAO boardDAO, UserDAO userDAO) {
         this.boardDAO = boardDAO;
-        this.userRepository = userRepository;
+        this.userDAO = userDAO;
     }
 
     //글 저장
     public void saveBoard(BoardDTO boardDTO, String usesrname) {
-        Optional<UserEntity> userEntity = userRepository.findByUsername(usesrname);
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .userEntity(userEntity.get())
+                .userEntity(userDAO.findByUsername(usesrname))
                 .build();
         boardDAO.write(board);
     }

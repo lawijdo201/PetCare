@@ -3,12 +3,13 @@ package com.example.petcare.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCareService {
@@ -37,4 +38,6 @@ public class UserCareService {
     private String postcode;
     private String address;
     private String detailAddress;
+    private String createAt;
+    private String phone_number;
 }

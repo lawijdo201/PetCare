@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PetCareDAO {
+    List<UserCareService> getBoardList();
+
+    UserCareService getBoard(Integer id);
+
     void saveMember(PetCare petCare);
 
     String findRole(String username);
@@ -18,5 +22,4 @@ public interface PetCareDAO {
 
     boolean existByUsernameFromUserCareService(String username);
 
-    List<UserCareService> findUserCareService();
 }

@@ -7,6 +7,7 @@ import com.example.petcare.entity.UserCareService;
 import com.example.petcare.repository.PetCareRepository;
 import com.example.petcare.repository.UserCareServiceRepository;
 import com.example.petcare.repository.UserRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,16 @@ public class PetCareDAOImpl implements PetCareDAO {
         this.petCareRepository = petCareRepository;
         this.userCareServiceRepository = userCareServiceRepository;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public List<UserCareService> getBoardList() {
+        return userCareServiceRepository.findAll(Sort.by(Sort.Direction.DESC, "CreateAt"));
+    }
+
+    @Override
+    public UserCareService getBoard(Integer id) {
+        return userCareServiceRepository.findById(id).get();
     }
 
     @Override
@@ -50,10 +61,5 @@ public class PetCareDAOImpl implements PetCareDAO {
         } else {
             return true;
         }
-    }
-
-    @Override
-    public List<UserCareService> findUserCareService() {
-        return userCareServiceRepository.findAll();
     }
 }

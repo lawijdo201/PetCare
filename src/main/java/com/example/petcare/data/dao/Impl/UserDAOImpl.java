@@ -5,8 +5,6 @@ import com.example.petcare.entity.UserEntity;
 import com.example.petcare.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserDAOImpl implements UserDAO {
     private final UserRepository userRepository;
@@ -23,8 +21,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserEntity findByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username);
-        return userEntity;
+        return userRepository.findByUsername(username).get();
     }
 
     @Override

@@ -1,0 +1,57 @@
+{{>layout/header}}
+    <div>
+        <h3>작성 시간</h3>
+        {{board.createAt}}
+        <h3>돌봄 가능 요일/시간</h3>
+        {{#board.day}}{{.}}{{/board.day}}{{^board.day}}지정된 요일이 없습니다.{{/board.day}}
+
+        <h3>제공 서비스</h3>
+        {{#board.walk}}<label class="btn btn-outline-success" for="walk">산책</label>{{/board.walk}}
+        {{^board.day}}{{/board.day}}
+        {{#board.idcard}}<label class="btn btn-outline-success" for="idcard">신분증 촬영</label>{{/board.idcard}}
+        {{^board.idcard}}{{/board.idcard}}
+        {{#board.homecam}}<label class="btn btn-outline-success" for="homecam">홈캠 촬영</label>{{/board.homecam}}
+        {{^board.homecam}}{{/board.homecam}}
+        {{#board.meeting}}<label class="btn btn-outline-success" for="meeting">사전 만남</label>{{/board.meeting}}
+        {{^board.meeting}}{{/board.meeting}}
+        {{#board.care}}<label class="btn btn-outline-success" for="care">노견 캐어</label>{{/board.care}}
+        {{^board.care}}{{/board.care}}
+
+        <h3>소개글</h3>
+        {{board.content}}
+
+        <h3>돌봄 비용</h3>
+        <h4>1시간 당 비용: {{board.price_perHour}}</h4>
+        <h4>10분 산책 비용: {{board.price_walk1}}</h4>
+        <h4>30분 산책 비용: {{board.price_walk2}}</h4>
+        <h4>1시간 산책 비용: {{board.price_walk3}}</h4>
+        <h4>2시간 산책 비용: {{board.price_walk4}}</h4>
+
+        <h3>주소</h3>
+        {{board.postcode}}
+        {{board.address}}
+        {{board.detailAddress}}
+
+        연락처
+        {{board.phone_number}}
+    </div>
+    <div>
+        <button onclick="goList()">글 목록</button>
+        <button onclick="deleteId({{board.id}}, '{{board.username}}')">글 삭제</button>
+        <button onclick="modifyBoard({{board.id}}, '{{board.username}}')">글 수정</button>
+    </div>
+
+<script>
+    function goList(){
+        window.location.href = 'list';
+    }
+
+    function deleteId(id, user){
+        window.location.href = 'delete?id=' + id + "&user=" + user;
+    }
+
+    function modifyBoard(id, user){
+        window.location.href = 'modify?id=' + id + "&user=" + user;
+    }
+</script>
+{{>layout/footer}}

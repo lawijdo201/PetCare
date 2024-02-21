@@ -85,6 +85,10 @@
         <input type="number" name="price_walk4" value="0">
         <p style="color: red; font-size: 8px;">{{#price_walk4}}{{.}}{{/price_walk4}}{{^price_walk4}}{{/price_walk4}}</p>
 
+        <h3>제공 서비스</h3>
+        <input type="checkbox" class="btn-check" name="walk" id="walk" autocomplete="off" value="True">
+        <label class="btn btn-outline-success" for="walk">산책</label>
+
         <h3>주소</h3>
         <input type="text" id="postcode" name="postcode" placeholder="우편번호">
         <button type="button" onclick="execDaumPostcode()" class="btn btn-outline-secondary">우편번호 찾기</button>
@@ -95,6 +99,7 @@
         <p style="color: red; font-size: 8px;">{{#detailAddress}}{{.}}{{/detailAddress}}{{^detailAddress}}{{/detailAddress}}</p>
         <input type="text" id="extraAddress" placeholder="참고항목" readonly>
 
+        <input type="text" id="phone_number" name="phone_number" placeholder="휴대폰 번호">
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
             function execDaumPostcode() {

@@ -1,5 +1,6 @@
 package com.example.petcare.service.PetCareService;
 
+import com.example.petcare.data.dto.PetCare.GiveCareDTO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.entity.UserEntity;
@@ -8,6 +9,12 @@ import java.util.List;
 
 public interface PetCareService {
     void saveRole(PetCare petCare);
+
+    void saveBoard();
+
+    List<UserCareService> getBoardList();
+
+    GiveCareDTO getBoard(Integer id);
 
     String findRole(String username);
 
@@ -19,5 +26,4 @@ public interface PetCareService {
 
     boolean existByusernameFromUserCareService(String username);
 
-    List<UserCareService> getAllBoardToMain();
 }
