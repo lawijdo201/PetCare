@@ -8,4 +8,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface SearchService {
     SearchDTO SearchBoard(String keyword);
+    SearchDTO SearchCareAddress(String keyword);
+
+    //main 작성자 검색
+    SearchDTO SearchCareUsername(String keyword);
 }

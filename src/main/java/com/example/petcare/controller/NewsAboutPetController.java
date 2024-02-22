@@ -16,18 +16,21 @@ public class NewsAboutPetController {
         this.newsService = newsService;
     }
 
+    //강아지 관련 뉴스
     @GetMapping("/dog")
     public String newsDog(Model model) {
         model.addAttribute("NewsDTO",newsService.newsDog());
         return "news";
     }
 
+    //고양이 관련 뉴스
     @GetMapping("/cat")
     public String newsCat(Model model) {
         model.addAttribute("NewsDTO",newsService.newsCat());
         return "news";
     }
 
+    //검색 뉴스
     @GetMapping("/search")
     public String newsAll(Model model, @RequestParam String newsName) {
         model.addAttribute("NewsDTO", newsService.newsSearch(newsName));

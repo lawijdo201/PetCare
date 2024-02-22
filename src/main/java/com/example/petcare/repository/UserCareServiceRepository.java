@@ -13,4 +13,6 @@ public interface UserCareServiceRepository extends JpaRepository<UserCareService
     @EntityGraph(attributePaths = {"day"})
     @Override
     Optional<UserCareService> findById(Integer id);
+
+    List<UserCareService> findByAddressContainingOrDetailAddressContaining(String keyword1, String keyword2);
 }

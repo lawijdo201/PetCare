@@ -33,6 +33,7 @@ public class MainController {
         this.petCareService = petCareService;
     }
 
+    //메인
     @GetMapping("/")
     public String main(Model model) {
         List<UserCareService> MainBoardList = petCareService.getBoardList();
@@ -41,33 +42,27 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/main")
-    public String test(Model model) {
-        return "index";
-    }
-
+    //"내 아이를 돌봐줘" 버튼 클릭시 발생 이벤트 시작점
     @GetMapping("/choose")
     public String chooseRole(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        //세션의 사용자 이름이 역활 지정이 안되있으면 역활 지정 페이지로 이동
+        //1. 세션의 사용자 이름이 역활 지정이 안되있으면 역활 지정 페이지로 이동
         if (petCareService.getUserEntity(SecurityContextHolder.getContext().getAuthentication().getName()).getPetCare()==null) {
             return "PetCareRole";
         }
 
-        //역활 지정이 되있다면
+        //2. 역활지정이 돌봄을 필요로 하는거라면 메인페이지로 이동
         else if (petCareService.findRole(username).equals("petowner")) {
-            //역활이 돌봄을 필요로 하는거라면
-
             return "redirect:/";
-            //아니면 역활이 돌봐주는 거라면
+            //역활이 돌봐주는 거라면
         } else {
-            //사용자 설정에서 이미 아이 돌봄 추가 정보 입력을 하였다면
+            //3. 사용자 설정에서 이미 아이 돌봄 추가 정보(user_care_service) 입력을 하였다면
             if (petCareService.existByusernameFromUserCareService(username)) {
                 AlertDTO alertDTO = new AlertDTO("기존 설정된 돌봄세팅이 재업로드됩니다.","/giveCare");
                 model.addAttribute("Message", alertDTO);
                 return "Alert";
 
-                //사용자 설정에서 아이 돌봄 추가 정보 입력을 안했다면
+                //4. 사용자 설정에서 아이 돌봄 추가 정보(user_care_service) 입력을 안했다면
             } else {
                 return "CareGive";
             }
@@ -75,6 +70,7 @@ public class MainController {
     }
 
 
+    //사용자 역활지정 엔티티(pet_care) 저장과 업데이트
     @PostMapping("/choose")
     public String chooseRoleDo(RoleDTO roleDTO, Model model) {
         //내 역활 설정 기억하기를 채크했다면 저장
@@ -98,11 +94,14 @@ public class MainController {
         }
     }
 
+    //3번째 프로세스, 아이 돌봄 추가 정보(user_care_service)엔티티 업데이트
     @GetMapping("/giveCare")
     public String updateGiveCare() {
         petCareService.updateUserCareServiceTime();
         return "redirect:/";
     }
+
+    //4번째 프로세스, 아이 돌봄 추가 정보(user_care_service)엔티티 생성
     @PostMapping("/giveCare")
     public String giveCare(Model model, @Valid GiveCareDTO giveCareDTO, BindingResult bindingResult) {
         //1. 유효값 애러일 경우

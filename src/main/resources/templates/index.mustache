@@ -2,6 +2,15 @@
 <div class="layout">
 <h1>MAIN</h1>
 <h3>아이 돌봐드려요</h3>
+    <form action="/search/care" method="get" style="display: inline;">
+        <select name="search" id="search">
+            <option value="address">주소</option>
+            <option value="username">작성자</option>
+            <option value="all">전체 보기</option>
+        </select>
+        <input type="text" name="keyword">
+        <button type="submit" class="btn btn-light">검색</button>
+    </form>
 <table class="table table-horizontal table-bordered">
     <thead class="thead-strong">
     <th>날짜</th>

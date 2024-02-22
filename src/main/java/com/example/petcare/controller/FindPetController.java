@@ -63,6 +63,7 @@ public class FindPetController {
         return "FindPetWrite";
     }
 
+    //글 작성 프로세스
     @PostMapping("/writedo")
     public String writeDo(PetDTO petDTO, MultipartFile file, Model model) {
         findPetService.saveBoard(petDTO, file);
@@ -110,6 +111,8 @@ public class FindPetController {
             return "Alert";
         }
     }
+
+    //글 수정 프로세스
     @PostMapping("/modifydo")
     public String modifyDo(PetInfo NewPetInfo, MultipartFile file, Model model){
         findPetService.updateBoard(NewPetInfo, file);

@@ -110,6 +110,7 @@ public class BoardWriteController {
             return "Alert";
         }
     }
+    //수정 프로세스
     @PostMapping("/modifydo")
     public String modifyDo(BoardDTO boardDTO, Integer id){
         System.out.println(id);

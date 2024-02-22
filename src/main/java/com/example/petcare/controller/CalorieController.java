@@ -19,28 +19,33 @@ public class CalorieController {
         this.calorieService = calorieService;
     }
 
+    //사료 URL
     @GetMapping("/feed")
     public String choicePet(Model model) {
         return "foodCalorieChoice";
     }
 
+    //강아지 사료
     @PostMapping("/feed/dog")
     public String foodDogCalorie(CalorieDogDTO calorieDogDTO, Model model) {
         model.addAttribute("AAFCO", calorieService.dogFoodCalorie(calorieDogDTO));
         return "foodCalorieDog";
     }
 
+    //고양이 사료
     @PostMapping("/feed/cat")
     public String foodCatCalorie(CalorieCatDTO calorieCatDTO, Model model) {
         model.addAttribute("AAFCO", calorieService.catFoodCalorie(calorieCatDTO));
         return "foodCalorieCat";
     }
 
+    //칼로리 추천 URL
     @GetMapping("/recommand_calorie")
     public String recomandCalorie(Model model) {
         return "RecommendCalorie";
     }
 
+    //고양이 칼로리 추천
     @GetMapping("/recommand_calorie/cat")
     public String recommandCat(RecommandCalDTO recommandCalDTO, Model model) {
         model.addAttribute("calorie", calorieService.catRecommandCal(recommandCalDTO));
@@ -48,6 +53,7 @@ public class CalorieController {
         return "RecommandBMR";
     }
 
+    //강아지 칼로리 추천
     @GetMapping("/recommand_calorie/dog")
     public String recommandDog(RecommandCalDTO recommandCalDogDTO, Model model) {
         model.addAttribute("calorie", calorieService.dogRecommandCal(recommandCalDogDTO));
