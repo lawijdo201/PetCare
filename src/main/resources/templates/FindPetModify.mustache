@@ -1,5 +1,4 @@
 {{>layout/header}}
-<h1>게시판</h1>
 <style>
     .layout {
         width: 500px;
@@ -20,6 +19,7 @@
     }
 </style>
 <div class="layout">
+    <h1>게시판</h1>
     <form action="/findPet/modifydo?id={{petInfo.id}}" method="post">
     <input name="title" type="text" value="{{petInfo.title}}"/>
     <textarea name="content">{{petInfo.content}}</textarea>
@@ -28,7 +28,7 @@
         <input class="form-control" type="file" name="file" id="formFile">
     </div>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-    <button type="submit">저장</button>
+    <button type="submit" class="btn btn-primary">저장</button>
     </form>
 </div>
 {{>layout/footer}}

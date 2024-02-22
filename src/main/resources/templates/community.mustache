@@ -1,5 +1,4 @@
 {{>layout/header}}
-<h1>community</h1>
 <style>
     .layout {
         width: 500px;
@@ -8,9 +7,10 @@
     }
 </style>
 <div class="layout">
-    <button onclick="writeBoard()">글 작성</button>
-    <table>
-        <thead>
+    <h1>community</h1>
+    <button onclick="writeBoard()" class="btn btn-dark">글 작성</button>
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
             <th>글번호</th>
             <th>제목</th>
             <th>내용</th>

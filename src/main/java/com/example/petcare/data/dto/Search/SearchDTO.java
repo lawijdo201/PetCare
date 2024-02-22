@@ -14,6 +14,7 @@ public class SearchDTO {
     private List<Board> boardList;
     private List<PetInfo> petInfoList;
 
+
     public SearchDTO(List<Board> boardList, List<PetInfo> petInfoList) {
         this.boardList = boardList;
         this.petInfoList = petInfoList;

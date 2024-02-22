@@ -13,8 +13,8 @@ public class OAuth2Naver implements OAuth2Response{
     }
 
     @Override
-    public String getProvider() {
-        return "naver";
+    public Join_Provider getProvider() {
+        return Join_Provider.Naver;
     }
 
     @Override

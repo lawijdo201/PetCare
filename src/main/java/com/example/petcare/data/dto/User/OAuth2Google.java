@@ -10,8 +10,8 @@ public class OAuth2Google implements OAuth2Response{
     }
 
     @Override
-    public String getProvider() {
-        return "google";
+    public Join_Provider getProvider() {
+        return Join_Provider.Google;
     }
 
     @Override

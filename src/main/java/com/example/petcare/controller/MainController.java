@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,12 +58,12 @@ public class MainController {
         else if (petCareService.findRole(username).equals("petowner")) {
             //역활이 돌봄을 필요로 하는거라면
 
-            return "CareReceive";
+            return "redirect:/";
             //아니면 역활이 돌봐주는 거라면
         } else {
             //사용자 설정에서 이미 아이 돌봄 추가 정보 입력을 하였다면
             if (petCareService.existByusernameFromUserCareService(username)) {
-                AlertDTO alertDTO = new AlertDTO("기존 설정된 돌봄세팅이 3시간동안 업로드 됩니다.","/");
+                AlertDTO alertDTO = new AlertDTO("기존 설정된 돌봄세팅이 재업로드됩니다.","/giveCare");
                 model.addAttribute("Message", alertDTO);
                 return "Alert";
 
@@ -76,18 +77,20 @@ public class MainController {
 
     @PostMapping("/choose")
     public String chooseRoleDo(RoleDTO roleDTO, Model model) {
-        //1. 내 역활 설정이 저장되어있지 않다면 저장
+        //내 역활 설정 기억하기를 채크했다면 저장
         if (roleDTO.getRemember() != null) {
+
             PetCare petCare = PetCare.builder()
                     .userEntity(petCareService.getUserEntity(SecurityContextHolder.getContext().getAuthentication().getName()))
                     .role(roleDTO.getRole())
                     .build();
             petCareService.saveRole(petCare);
         }
-            //2-1. 역활이 돌봄을 필요로 하는거라면
+        //2-1. 역활이 돌봄을 필요로 하는거라면
         if (roleDTO.getRole().equals("petowner")) {
-            log.info(roleDTO.getRole());
-            return "CareReceive";
+            //2-1-1. 펫 돌봄 서비스 데이터가 남아있다면 지우기
+            petCareService.removeUserCareService(SecurityContextHolder.getContext().getAuthentication().getName());
+            return "redirect:/";
             //2-2. 역활이 돌봐주는거라면
         } else {
             log.info(roleDTO.getRole());
@@ -95,6 +98,11 @@ public class MainController {
         }
     }
 
+    @GetMapping("/giveCare")
+    public String updateGiveCare() {
+        petCareService.updateUserCareServiceTime();
+        return "redirect:/";
+    }
     @PostMapping("/giveCare")
     public String giveCare(Model model, @Valid GiveCareDTO giveCareDTO, BindingResult bindingResult) {
         //1. 유효값 애러일 경우
@@ -108,8 +116,6 @@ public class MainController {
             }
             return "CareGive";
         }
-        log.info(giveCareDTO.getWalk());        //null or True
-        log.info(giveCareDTO.getIdcard());
 
 
         // 현재 날짜와 시간 가져오기
@@ -148,6 +154,5 @@ public class MainController {
     public String save(Model model, Integer id) {
         model.addAttribute("board", petCareService.getBoard(id));
         return "PetCareView";
-
     }
 }

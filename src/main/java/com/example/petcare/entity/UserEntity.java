@@ -1,5 +1,6 @@
 package com.example.petcare.entity;
 
+import com.example.petcare.data.dto.User.Join_Provider;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,8 @@ public class UserEntity {
     private String username;
 
     private String pw;
+    @Enumerated(EnumType.STRING)
+    private Join_Provider joinProvider;
 
     @Column(unique = true)
     private String email;

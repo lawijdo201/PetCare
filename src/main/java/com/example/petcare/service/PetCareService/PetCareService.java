@@ -18,6 +18,8 @@ public interface PetCareService {
 
     String findRole(String username);
 
+    void updateUserCareServiceTime();
+
     boolean existByusername(String username);
 
     UserEntity getUserEntity(String username);
@@ -25,5 +27,7 @@ public interface PetCareService {
     void saveInfo(UserCareService userCareService);
 
     boolean existByusernameFromUserCareService(String username);
+
+    void removeUserCareService(String username);
 
 }

@@ -1,15 +1,14 @@
 package com.example.petcare.config;
 
 import com.example.petcare.service.User.Impl.CustomOAuth2UserService;
-import com.example.petcare.utils.oauth2.CustomClientRegistrationRepo;
-import com.example.petcare.utils.oauth2.CustomOAuth2AuthorizedClientService;
+/*import com.example.petcare.utils.oauth2.CustomClientRegistrationRepo;
+import com.example.petcare.utils.oauth2.CustomOAuth2AuthorizedClientService;*/
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,18 +27,11 @@ import java.io.IOException;
 public class SecurityConfig {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final CustomClientRegistrationRepo customClientRegistrationRepo;
-    private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
-    private final JdbcTemplate jdbcTemplate;
-
 
     @Autowired
-    public SecurityConfig(AuthenticationManagerBuilder authenticationManagerBuilder, CustomOAuth2UserService customOAuth2UserService, CustomClientRegistrationRepo customClientRegistrationRepo, CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService, JdbcTemplate jdbcTemplate) {
+    public SecurityConfig(AuthenticationManagerBuilder authenticationManagerBuilder, CustomOAuth2UserService customOAuth2UserService) {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.customOAuth2UserService = customOAuth2UserService;
-        this.customClientRegistrationRepo = customClientRegistrationRepo;
-        this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
 
@@ -111,8 +103,6 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
-                        .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())
-                        .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)));
 

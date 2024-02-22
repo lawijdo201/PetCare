@@ -28,6 +28,7 @@ public class NewsServiceImpl implements NewsService {
     String searchKey;
 
 
+    //강아지 DTO객체 받아오기
     @Override
     public List<NewsDTO> newsDog() {
         List<NewsDTO> newsDTO = new ArrayList<>();
@@ -39,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
             for (Object o : items) {
                 newsDTO.add(NewsDTO.builder().title(((JSONObject) o).get("title").toString())
                         .date(((JSONObject) o).get("pubDate").toString())
-                        .content(((JSONObject) o).get("description").toString())
+                        .content(((JSONObject) o).get("description").toString().substring(0,Math.min(60,((JSONObject) o).get("description").toString().length()))+"...")
                         .link(((JSONObject) o).get("originallink").toString())
                         .build());
             }

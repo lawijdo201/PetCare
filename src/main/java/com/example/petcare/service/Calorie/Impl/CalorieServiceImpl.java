@@ -175,12 +175,15 @@ public class CalorieServiceImpl implements CalorieService {
         return resertCalorieDogDTO;
     }
 
+    //고양이 칼로리 계산
     @Override
     public float catRecommandCal(RecommandCalDTO recommandCalDTO) {
         float RER = 30 * recommandCalDTO.getWeight() + 70;
         return recommandCalDTO.getStats()*RER;
     }
 
+
+    //강아지 칼로리 계산
     @Override
     public float dogRecommandCal(RecommandCalDTO recommandCalDTO) {
         float RER;

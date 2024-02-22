@@ -9,4 +9,6 @@ public interface UserService {
     boolean existID(String id);
 
     boolean existEmail(String email);
+
+    void modify(String username);
 }

@@ -1,9 +1,9 @@
 {{>layout/header}}
-    <div>
+    <div class="layout">
         <h3>작성 시간</h3>
         {{board.createAt}}
         <h3>돌봄 가능 요일/시간</h3>
-        {{#board.day}}{{.}}{{/board.day}}{{^board.day}}지정된 요일이 없습니다.{{/board.day}}
+        {{#board.day}}<label class="btn btn-outline-dark" for="walk">{{.}}</label>{{/board.day}}{{^board.day}}지정된 요일이 없습니다.{{/board.day}}
 
         <h3>제공 서비스</h3>
         {{#board.walk}}<label class="btn btn-outline-success" for="walk">산책</label>{{/board.walk}}
@@ -28,30 +28,17 @@
         <h4>2시간 산책 비용: {{board.price_walk4}}</h4>
 
         <h3>주소</h3>
-        {{board.postcode}}
-        {{board.address}}
-        {{board.detailAddress}}
+        {{board.postcode}}<br>
 
-        연락처
-        {{board.phone_number}}
-    </div>
-    <div>
-        <button onclick="goList()">글 목록</button>
-        <button onclick="deleteId({{board.id}}, '{{board.username}}')">글 삭제</button>
-        <button onclick="modifyBoard({{board.id}}, '{{board.username}}')">글 수정</button>
-    </div>
+        {{board.address}}<br>
+        {{board.detailAddress}}<br>
 
+        연락처: {{board.phone_number}}<br>
+        <button onclick="goList()" class="btn btn-primary">글 목록</button>
+    </div>
 <script>
     function goList(){
-        window.location.href = 'list';
-    }
-
-    function deleteId(id, user){
-        window.location.href = 'delete?id=' + id + "&user=" + user;
-    }
-
-    function modifyBoard(id, user){
-        window.location.href = 'modify?id=' + id + "&user=" + user;
+        window.location.href = '/';
     }
 </script>
 {{>layout/footer}}

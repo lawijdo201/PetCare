@@ -62,4 +62,9 @@ public class PetCareDAOImpl implements PetCareDAO {
             return true;
         }
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        userCareServiceRepository.deleteById(id);
+    }
 }

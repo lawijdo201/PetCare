@@ -1,31 +1,12 @@
 {{>layout/header}}
-<h1>게시판</h1>
-<style>
-    .layout {
-        width: 500px;
-        margin: 0 auto;
-        margin-top: 40px;
-    }
-
-    .layout input{
-        width: 100%;
-        box-sizing: border-box;
-
-    }
-
-    .layout textarea{
-        width: 100%;
-        margin-top: 10px;
-        min-height: 300px;
-    }
-</style>
 <div class="layout">
+    <h1>게시판</h1>
     <form action="/community/modifydo" method="post">
         <input name="title" type="text" value="{{board.title}}"/>
         <textarea name="content">{{board.content}}</textarea>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <input type="hidden" type="number" name="id" value="{{board.id}}">
-        <button type="submit">저장</button>
+        <button type="submit" class="btn btn-primary">저장</button>
     </form>
 </div>
 {{>layout/footer}}

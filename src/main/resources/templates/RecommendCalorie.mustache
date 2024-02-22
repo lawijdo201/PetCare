@@ -1,16 +1,17 @@
 {{>layout/header}}
-당신의 팻의 종류를 채크해주세요
-<div>
-    <button onclick="dogF()">강아지</button>
-    <button onclick="catF()">고양이</button>
-</div>
-<div id="FormContainer"></div>
-<script>
-    function catF() {
-        var catForm = `
+<div class="layout">
+    당신의 팻의 종류를 채크해주세요
+    <div>
+        <button class="btn btn-dark" onclick="dogF()">강아지</button>
+        <button class="btn btn-dark" onclick="catF()">고양이</button>
+    </div>
+    <div id="FormContainer"></div>
+    <script>
+        function catF() {
+            var catForm = `
          <form action="/calorie/recommand_calorie/cat" method="get">
         <h2>반려동물 몸무게</h2>
-        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">KG
+        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">단위는 KG입니다.
         <h2>반려동물 상태</h2>
         <label for="stats">반려동물 상태</label>
         <select name="stats" id="stats">
@@ -24,18 +25,18 @@
             <option value=0.7>노묘</option>
         </select>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-        <input type="submit" value="알아보기">
+        <input type="submit" class="btn btn-primary" value="알아보기">
     </form>
         `;
-        document.getElementById('FormContainer').innerHTML = catForm;
-        return true;
-    }
+            document.getElementById('FormContainer').innerHTML = catForm;
+            return true;
+        }
 
-    function dogF() {
-        var dogForm = `
-        <form action="calorie/recommand_calorie/dog" method="get">
+        function dogF() {
+            var dogForm = `
+        <form action="/calorie/recommand_calorie/dog" method="get">
         <h2>반려동물 몸무게</h2>
-        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">KG
+        <input type="number" placeholder="0.00" step="0.01" pattern="^d*(.d{0,2})?$" name="weight" value="0.00">단위는 KG입니다.
         <h2>반려동물 상태</h2>
         <label for="stats">반려동물 상태</label>
         <select name="stats" id="stats">
@@ -50,12 +51,12 @@
             <option value=1.4>노령견</option>
         </select>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-        <input type="submit" value="알아보기">
+        <input type="submit" class="btn btn-primary" value="알아보기">
     </form>
         `;
-        document.getElementById('FormContainer').innerHTML = dogForm;
-        return true;
-    }
-</script>
-
+            document.getElementById('FormContainer').innerHTML = dogForm;
+            return true;
+        }
+    </script>
+</div>
 {{>layout/footer}}

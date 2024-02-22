@@ -1,21 +1,22 @@
 {{>layout/header}}
+<div class="layout">
 {{#board}}
     <h1>게시글</h1>
     <p>{{{title}}}</p>
     <h1>내용</h1>
     <p>{{{content}}}</p>
     <div>
-        <button onclick="goList()">글 목록</button>
-        <button onclick="deleteId({{id}}, '{{userEntity.username}}')">글 삭제</button>
-        <button onclick="modifyBoard({{id}}, '{{userEntity.username}}')">글 수정</button>
+        <button class="btn btn-light" onclick="goList()">글 목록</button>
+        <button class="btn btn-light" onclick="deleteId({{id}}, '{{userEntity.username}}')">글 삭제</button>
+        <button class="btn btn-light" onclick="modifyBoard({{id}}, '{{userEntity.username}}')">글 수정</button>
     </div>
 {{/board}}
 
 {{#nearById}}
     <div>
-        <button onclick="checkBid({{bid}})">이전 글</button>
+        <button class="btn btn-light" onclick="checkBid({{bid}})">이전 글</button>
         </button>
-        <button onclick="checkAid({{aid}})">다음 글</button>
+        <button class="btn btn-light" onclick="checkAid({{aid}})">다음 글</button>
         </button>
     </div>
 {{/nearById}}
@@ -47,4 +48,5 @@
         window.location.href = 'modify?id=' + id + "&user=" + user;
     }
 </script>
+</div>
 {{>layout/footer}}

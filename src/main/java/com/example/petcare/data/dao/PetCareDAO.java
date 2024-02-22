@@ -22,4 +22,5 @@ public interface PetCareDAO {
 
     boolean existByUsernameFromUserCareService(String username);
 
+    void deleteById(Integer id);
 }

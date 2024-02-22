@@ -31,7 +31,7 @@ public class UserController {
         this.userService = userService;
     }
     @GetMapping("/info")
-    public String info(){
+    public String info(Model model){
         return "UserInfo";
     }
 
@@ -79,15 +79,33 @@ public class UserController {
         }
     }
 
+    @PostMapping("/changeUsername")
+    public String changeUsername(String username, Model model) {
+        userService.modify(username);
+        AlertDTO alertDTO = new AlertDTO("아이디가 변경되었습니다.","/");
+        model.addAttribute("Message", alertDTO);
+        return "Alert";
+    }
+
     @PostMapping("/checkDuplicateUsername")
     @ResponseBody
     public boolean duplicatiedUsername(@RequestParam("checkData") String value) {
-        return userService.existID(value);
+        if (value == null || value.isBlank()) {
+            return false;
+        } else {
+            return userService.existID(value);
+        }
     }
 
     @PostMapping("/checkDuplicateEmail")
     @ResponseBody
     public boolean duplicatiedEmail(@RequestParam("checkData") String value) {
-        return userService.existEmail(value);
+        if (value == null || value.isBlank() || !value.contains("@")) {
+            return false;
+        } else {
+            System.out.println(userService.existEmail(value));
+            System.out.println(value);
+            return userService.existEmail(value);
+        }
     }
 }

@@ -7,26 +7,27 @@ import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.entity.UserEntity;
 import com.example.petcare.service.PetCareService.PetCareService;
-import com.example.petcare.service.Redis.RedisService;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
 public class PetCareServiceImpl implements PetCareService {
     private final PetCareDAO petCareDAO;
     private final UserDAO userDAO;
-    private final RedisService redisService;
 
-    public PetCareServiceImpl(PetCareDAO petCareDAO, UserDAO userDAO, RedisService redisService) {
+    public PetCareServiceImpl(PetCareDAO petCareDAO, UserDAO userDAO) {
         this.petCareDAO = petCareDAO;
         this.userDAO = userDAO;
-        this.redisService = redisService;
     }
 
     @Override
+    @Transactional
     public void saveRole(PetCare petCare) {
         petCareDAO.saveMember(petCare);
     }
@@ -34,7 +35,7 @@ public class PetCareServiceImpl implements PetCareService {
     @Override
     public void saveBoard() {
         UserEntity userEntity = userDAO.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        redisService.addValue(userEntity.getUsername(), userEntity.getUserCareService());
+        userEntity.getUserCareService();
     }
 
     //게시글 모두 불러오기
@@ -78,6 +79,18 @@ public class PetCareServiceImpl implements PetCareService {
     }
 
     @Override
+    @Transactional
+    public void updateUserCareServiceTime() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserCareService userCareService = userDAO.findByUsername(username).getUserCareService();
+        userCareService.setCreateAt(formattedDateTime);
+    }
+
+    @Override
     public boolean existByusername(String username){
         return petCareDAO.existByusername(username);
     }
@@ -88,6 +101,7 @@ public class PetCareServiceImpl implements PetCareService {
     }
 
     @Override
+    @Transactional
     public void saveInfo(UserCareService userCareService) {
         petCareDAO.savePetCare(userCareService);
     }
@@ -98,4 +112,12 @@ public class PetCareServiceImpl implements PetCareService {
         return petCareDAO.existByUsernameFromUserCareService(username);
     }
 
+    @Override
+    @Transactional
+    public void removeUserCareService(String username) {
+        UserEntity userEntity = userDAO.findByUsername(username);
+        if (userDAO.findByUsername(username).getUserCareService() != null) {
+            petCareDAO.deleteById(userEntity.getUserCareService().getId());
+        }
+    }
 }
