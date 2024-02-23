@@ -8,6 +8,15 @@
 </style>
 <div class="layout">
     <h1>내 아이 찾기</h1>
+    <form action="/search/petCare" method="get" style="display: inline;">
+        <select name="search" id="search">
+            <option value="content">제목+본문</option>
+            <option value="username">작성자</option>
+            <option value="all">전체 보기</option>
+        </select>
+        <input type="text" name="keyword">
+        <button type="submit" class="btn btn-light">검색</button>
+    </form>
     <button class="btn btn-dark" onclick="writeBoard()">글 작성</button>
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
@@ -18,7 +27,7 @@
         {{#list}}
             <tr>
                 <td>{{id}}</td>
-                <td><a href="view?id={{id}}">{{title}}</a></td>
+                <td><a href="/findPet/view?id={{id}}">{{title}}</a></td>
                 <td>{{userEntity.username}}</td>
             </tr>
         {{/list}}

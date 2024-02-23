@@ -2,12 +2,15 @@ package com.example.petcare.service.PetCareService.Impl;
 
 import com.example.petcare.data.dao.PetCareDAO;
 import com.example.petcare.data.dao.UserDAO;
+import com.example.petcare.data.dto.Board.NearByBoardDTO;
 import com.example.petcare.data.dto.PetCare.GiveCareDTO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.entity.UserEntity;
 import com.example.petcare.service.PetCareService.PetCareService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -40,8 +43,8 @@ public class PetCareServiceImpl implements PetCareService {
 
     //게시글 모두 불러오기
     @Override
-    public List<UserCareService> getBoardList(){
-        return petCareDAO.getBoardList();
+    public Page<UserCareService> getBoardList(Pageable pageable){
+        return petCareDAO.getBoardList(pageable);
     }
 
     //게시글 하나 가져오기
@@ -119,5 +122,10 @@ public class PetCareServiceImpl implements PetCareService {
         if (userDAO.findByUsername(username).getUserCareService() != null) {
             petCareDAO.deleteById(userEntity.getUserCareService().getId());
         }
+    }
+
+    @Override
+    public NearByBoardDTO getNearByBoard(Integer id) {
+        return petCareDAO.getNearByBoard(id);
     }
 }

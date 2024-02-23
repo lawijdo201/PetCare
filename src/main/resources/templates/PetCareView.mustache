@@ -34,11 +34,33 @@
         {{board.detailAddress}}<br>
 
         연락처: {{board.phone_number}}<br>
-        <button onclick="goList()" class="btn btn-primary">글 목록</button>
+        <button onclick="goList()" class="btn btn-light">글 목록</button>
+        {{#nearById}}
+            <div>
+                <button class="btn btn-light" onclick="checkBid({{bid}})">이전 글</button>
+                </button>
+                <button class="btn btn-light" onclick="checkAid({{aid}})">다음 글</button>
+                </button>
+            </div>
+        {{/nearById}}
     </div>
 <script>
     function goList(){
         window.location.href = '/';
+    }
+    function checkBid(bid){
+        if (bid == 0) {
+            alert("이전 글이 없습니다.");
+        } else {
+            window.location.href = 'view?id=' + bid;
+        }
+    }
+    function checkAid(aid){
+        if (aid == 9999999) {
+            alert("다음 글이 없습니다.");
+        } else {
+            window.location.href = 'view?id=' + aid;
+        }
     }
 </script>
 {{>layout/footer}}

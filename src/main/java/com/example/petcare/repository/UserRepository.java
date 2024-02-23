@@ -2,6 +2,8 @@ package com.example.petcare.repository;
 
 import com.example.petcare.entity.UserCareService;
 import com.example.petcare.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +20,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     @Query("SELECT care FROM UserCareService care " +
             "JOIN care.userEntity user " +
             "WHERE user.username LIKE %:keyword%")
-    List<UserCareService> findByUsernameInUserCareService(@Param("keyword") String keyword);
+    Page<UserCareService> findByUsernameInUserCareService(@Param("keyword") String keyword, Pageable pageable);
 }

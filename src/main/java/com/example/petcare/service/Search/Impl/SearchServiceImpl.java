@@ -1,15 +1,18 @@
 package com.example.petcare.service.Search.Impl;
 
-import com.example.petcare.data.dao.SearchDAO;
 import com.example.petcare.data.dto.Search.SearchDTO;
 import com.example.petcare.entity.Board;
 import com.example.petcare.entity.PetInfo;
 import com.example.petcare.entity.UserCareService;
+import com.example.petcare.repository.BoardRepository;
+import com.example.petcare.repository.FindPetRepository;
 import com.example.petcare.repository.UserCareServiceRepository;
 import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.Search.SearchService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
@@ -19,50 +22,53 @@ import java.util.List;
 @Slf4j
 public class SearchServiceImpl implements SearchService {
     private final UserCareServiceRepository userCareServiceRepository;
+    private final FindPetRepository findPetRepository;
     private final UserRepository userRepository;
-    private final SearchDAO searchDAO;
+    private final BoardRepository boardRepository;
 
-    public SearchServiceImpl(UserCareServiceRepository userCareServiceRepository, UserRepository userRepository, SearchDAO searchDAO) {
+    public SearchServiceImpl(UserCareServiceRepository userCareServiceRepository, FindPetRepository findPetRepository, UserRepository userRepository, BoardRepository boardRepository) {
         this.userCareServiceRepository = userCareServiceRepository;
+        this.findPetRepository = findPetRepository;
         this.userRepository = userRepository;
-        this.searchDAO = searchDAO;
-    }
-
-    @Override
-    public SearchDTO SearchBoard(String keyword) {
-        List<Board> boardList = searchDAO.SearchBoardList(keyword);
-        List<PetInfo> petInfoList = searchDAO.SearchPetList(keyword);
-        List<UserCareService> userCareServicesList = searchDAO.SearchUserCareService(keyword);
-
-        Collections.reverse(boardList);
-        Collections.reverse(petInfoList);
-        Collections.reverse(userCareServicesList);
-
-        boardList.subList(0, Math.min(10, boardList.size()));
-        petInfoList.subList(0, Math.min(10, petInfoList.size()));
-        userCareServicesList.subList(0, Math.min(10, userCareServicesList.size()));
-
-        return new SearchDTO(boardList, petInfoList, userCareServicesList);
+        this.boardRepository = boardRepository;
     }
 
 
 
     //main 주소 검색
     @Override
-    public SearchDTO SearchCareAddress(String keyword) {
-        List<UserCareService> userCareServicesList = userCareServiceRepository.findByAddressContainingOrDetailAddressContaining(keyword, keyword);
-        Collections.reverse(userCareServicesList);
-        userCareServicesList.subList(0, Math.min(10, userCareServicesList.size()));
-        return SearchDTO.builder().userCareService(userCareServicesList).build();
+    public Page<UserCareService> SearchCareAddress(String keyword, Pageable pageable) {
+        return userCareServiceRepository.findByAddressContainingOrDetailAddressContaining(keyword, keyword, pageable);
     }
 
     //main 작성자 검색
     @Override
-    public SearchDTO SearchCareUsername(String keyword) {
-        List<UserCareService> userCareServicesList = userRepository.findByUsernameInUserCareService(keyword);
-        Collections.reverse(userCareServicesList);
-        userCareServicesList.subList(0, Math.min(10, userCareServicesList.size()));
-        return SearchDTO.builder().userCareService(userCareServicesList).build();
+    public Page<UserCareService> SearchCareUsername(String keyword, Pageable pageable) {
+        return userRepository.findByUsernameInUserCareService(keyword, pageable);
+    }
+
+    //팻 찾기 제목 + 본문 검색
+    @Override
+    public Page<PetInfo> SearchPetCareContent(String keyword, Pageable pageable) {
+        return findPetRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+    }
+
+    //팻 찾기 사용자 검색
+    @Override
+    public Page<PetInfo> SearchPetCareUsername(String keyword, Pageable pageable) {
+        return findPetRepository.findByUsernameLikeKeyword(keyword, pageable);
+    }
+
+    //커뮤니티 찾기 제목 + 본문 검색
+    @Override
+    public Page<Board> SearchBoardContent(String keyword, Pageable pageable) {
+        return boardRepository.findByTitleContainingOrContentContaining(keyword, keyword,pageable);
+    }
+
+    //커뮤니티 찾기 사용자 검색
+    @Override
+    public Page<Board> SearchBoardUsername(String keyword, Pageable pageable) {
+        return boardRepository.findByUsernameLikeKeyword(keyword, pageable);
     }
 
 }

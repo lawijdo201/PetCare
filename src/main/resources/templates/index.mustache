@@ -1,32 +1,57 @@
 {{>layout/header}}
 <div class="layout">
-<h1>MAIN</h1>
 <h3>아이 돌봐드려요</h3>
     <form action="/search/care" method="get" style="display: inline;">
-        <select name="search" id="search">
-            <option value="address">주소</option>
-            <option value="username">작성자</option>
-            <option value="all">전체 보기</option>
-        </select>
-        <input type="text" name="keyword">
-        <button type="submit" class="btn btn-light">검색</button>
+        <div class="d-flex flex-row bd-highlight">
+            <div>
+                <select name="search" id="search" class="form-select form-select-sm mb-3">
+                    <option value="address">주소</option>
+                    <option value="username">작성자</option>
+                    <option value="all">전체 보기</option>
+                </select>
+            </div>
+            <div>
+                <input type="text" class="form-control mb-3" name="keyword">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-light">검색</button>
+            </div>
+        </div>
     </form>
+    <h4>"도움말"</h4>
 <table class="table table-horizontal table-bordered">
     <thead class="thead-strong">
     <th>날짜</th>
     <th>주소</th>
     <th>작성자</th>
     </thead>
-    {{#GiveCare}}
+    {{#list}}
         <tr>
-            <td><a href="view?id={{id}}" style="color:black">{{createAt}}</a></td>
-            <td><a href="view?id={{id}}" style="color:black">{{address}}</a></td>
-            <td><a href="view?id={{id}}" style="color:black">{{userEntity.username}}</a></td>
+            <td><a href="/view?id={{id}}" style="color:black">{{createAt}}</a></td>
+            <td><a href="/view?id={{id}}" style="color:black">{{address}}</a></td>
+            <td><a href="/view?id={{id}}" style="color:black">{{userEntity.username}}</a></td>
         </tr>
-    {{/GiveCare}}
+    {{/list}}
 </table>
-{{^GiveCare}}
+{{^list}}
     아직 계시글이 존재하지 않습니다.
-{{/GiveCare}}
+{{/list}}
+    <div>
+        {{#hasPrev}}
+            <a href="?page={{previous}}">이전</a>
+        {{/hasPrev}}
+        {{^hasPrev}}
+            이전
+        {{/hasPrev}}
+        {{#page.num}}
+            <a href="list?page={{.}}">{{.}}</a>
+        {{/page.num}}
+        {{#hasNext}}
+            <a href="?page={{next}}">다음</a>
+        {{/hasNext}}
+        {{^hasNext}}
+            다음
+        {{/hasNext}}
+    </div>
 </div>
 {{>layout/footer}}

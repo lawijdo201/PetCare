@@ -8,6 +8,15 @@
 </style>
 <div class="layout">
     <h1>community</h1>
+    <form action="/search/board" method="get" style="display: inline;">
+        <select name="search" id="search">
+            <option value="content">제목+본문</option>
+            <option value="username">작성자</option>
+            <option value="all">전체 보기</option>
+        </select>
+        <input type="text" name="keyword">
+        <button type="submit" class="btn btn-light">검색</button>
+    </form>
     <button onclick="writeBoard()" class="btn btn-dark">글 작성</button>
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
@@ -19,7 +28,7 @@
         {{#list}}
             <tr>
                 <td>{{{id}}}</td>
-                <td><a href="view?id={{id}}">{{{title}}}</a></td>
+                <td><a href="/community/view?id={{id}}" style="color:black">{{{title}}}</a></td>
                 <td>{{content}}</td>
                 <td>{{userEntity.username}}</td>
             </tr>

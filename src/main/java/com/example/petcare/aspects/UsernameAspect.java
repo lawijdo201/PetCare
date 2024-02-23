@@ -13,7 +13,8 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class UsernameAspect {
-
+    //어느 페이지마다 로그인시 SecurityContextHolder에서 사용자 아이디를 가져와서 model에 추가하는 코드가 반복되어
+    //스프링aop를 활용해보았습니다.
     /*Controller마다 세션으로부터 사용자 이름 받아와서 Model에 집어넣기*/
     @Before("execution(* com.example.petcare.controller.*.*(..))")
     public void userInfoSet(JoinPoint joinPoint) {

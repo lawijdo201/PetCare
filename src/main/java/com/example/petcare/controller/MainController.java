@@ -8,6 +8,10 @@ import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.PetCareService.PetCareService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +40,27 @@ public class MainController {
 
     //메인
     @GetMapping("/")
-    public String main(Model model) {
-        List<UserCareService> MainBoardList = petCareService.getBoardList();
-        System.out.println(MainBoardList);
-        model.addAttribute("GiveCare", MainBoardList);
+    public String main(Model model, @PageableDefault(page = 0, size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<UserCareService> list = petCareService.getBoardList(pageable);
+        System.out.println(list.getContent());
+        int CurrentPage = pageable.getPageNumber();
+
+        List<Integer> num = new ArrayList<>();
+        Map<String, Object> page = new HashMap<>();
+        page.put("num", num);
+        for (int i = CurrentPage-CurrentPage%10; i < Math.min(CurrentPage-CurrentPage%10+10,list.getTotalPages()); i++) {
+            num.add(i);
+        }
+        page.put("CurrentPage", CurrentPage);
+
+
+        model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+        model.addAttribute("next", pageable.next().getPageNumber());
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute("list", list);
+        model.addAttribute("page", page);
+
         return "index";
     }
 
@@ -152,6 +174,7 @@ public class MainController {
     @GetMapping("/view")
     public String save(Model model, Integer id) {
         model.addAttribute("board", petCareService.getBoard(id));
+        model.addAttribute("nearById", petCareService.getNearByBoard(id));
         return "PetCareView";
     }
 }
