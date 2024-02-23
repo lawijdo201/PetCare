@@ -1,23 +1,26 @@
 {{>layout/header}}
-<style>
-    .layout {
-        width: 500px;
-        margin: 0 auto;
-        margin-top: 40px;
-    }
-</style>
 <div class="layout">
-    <h1>내 아이 찾기</h1>
+    <h1 class="d-flex justify-content-center">내 아이 찾기</h1>
     <form action="/search/petCare" method="get" style="display: inline;">
-        <select name="search" id="search">
-            <option value="content">제목+본문</option>
-            <option value="username">작성자</option>
-            <option value="all">전체 보기</option>
-        </select>
-        <input type="text" name="keyword">
-        <button type="submit" class="btn btn-light">검색</button>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight">
+                <select name="search" id="search" class="form-select form-select-sm">
+                    <option value="content">제목+본문</option>
+                    <option value="username">작성자</option>
+                    <option value="all">전체 보기</option>
+                </select>
+            </div>
+            <div class="flex-grow-1 p-2 bd-highlight">
+                <input type="text" class="form-control" name="keyword">
+            </div>
+            <div class="bd-highlight p-2">
+                <button type="submit" class="btn btn-light">검색</button>
+            </div>
+            <div class="bd-highlight p-2">
+                <button class="btn btn-dark" onclick="writeBoard()">글 작성</button>
+            </div>
+        </div>
     </form>
-    <button class="btn btn-dark" onclick="writeBoard()">글 작성</button>
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
             <th>글번호</th>
@@ -32,23 +35,29 @@
             </tr>
         {{/list}}
     </table>
-    <div>
-        {{#hasPrev}}
-            <a href="?page={{previous}}">이전</a>
-        {{/hasPrev}}
-        {{^hasPrev}}
-            이전
-        {{/hasPrev}}
-        {{#page.num}}
-            <a href="list?page={{.}}">{{.}}</a>
-        {{/page.num}}
-        {{#hasNext}}
-            <a href="?page={{next}}">다음</a>
-        {{/hasNext}}
-        {{^hasNext}}
-            다음
-        {{/hasNext}}
-     </div>
+    <div class="d-flex justify-content-center bd-highlight flex-row">
+        <div class="p-2 bd-highlight">
+            {{#hasPrev}}
+                <a href="?page={{previous}}">이전</a>
+            {{/hasPrev}}
+            {{^hasPrev}}
+                이전
+            {{/hasPrev}}
+        </div>
+        <div class="p-2 bd-highlight me-auto ms-auto">
+            {{#page.num}}
+                <a href="list?page={{.}}">{{.}}</a>
+            {{/page.num}}
+        </div>
+        <div class="p-2 bd-highlight">
+            {{#hasNext}}
+                <a href="?page={{next}}">다음</a>
+            {{/hasNext}}
+            {{^hasNext}}
+                다음
+            {{/hasNext}}
+        </div>
+    </div>
 </div>
 <script>
     function writeBoard(){

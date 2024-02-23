@@ -1,19 +1,19 @@
 {{>layout/header}}
 <div class="layout">
-<h3>아이 돌봐드려요</h3>
+<h3 class="d-flex justify-content-center">아이 돌봐드려요</h3>
     <form action="/search/care" method="get" style="display: inline;">
         <div class="d-flex flex-row bd-highlight">
-            <div>
-                <select name="search" id="search" class="form-select form-select-sm mb-3">
+            <div class="p-2 bd-highlight">
+                <select name="search" id="search" class="form-select form-select-sm">
                     <option value="address">주소</option>
                     <option value="username">작성자</option>
                     <option value="all">전체 보기</option>
                 </select>
             </div>
-            <div>
-                <input type="text" class="form-control mb-3" name="keyword">
+            <div class="flex-grow-1 p-2 bd-highlight">
+                <input type="text" class="form-control" name="keyword">
             </div>
-            <div>
+            <div class="bd-highlight p-2">
                 <button type="submit" class="btn btn-light">검색</button>
             </div>
         </div>
@@ -36,22 +36,28 @@
 {{^list}}
     아직 계시글이 존재하지 않습니다.
 {{/list}}
-    <div>
-        {{#hasPrev}}
-            <a href="?page={{previous}}">이전</a>
-        {{/hasPrev}}
-        {{^hasPrev}}
-            이전
-        {{/hasPrev}}
-        {{#page.num}}
-            <a href="list?page={{.}}">{{.}}</a>
-        {{/page.num}}
-        {{#hasNext}}
-            <a href="?page={{next}}">다음</a>
-        {{/hasNext}}
-        {{^hasNext}}
-            다음
-        {{/hasNext}}
+    <div class="d-flex justify-content-center bd-highlight flex-row">
+        <div class="p-2 bd-highlight">
+            {{#hasPrev}}
+                <a href="?page={{previous}}">이전</a>
+            {{/hasPrev}}
+            {{^hasPrev}}
+                이전
+            {{/hasPrev}}
+        </div>
+        <div class="p-2 bd-highlight me-auto ms-auto">
+            {{#page.num}}
+                <a href="list?page={{.}}">{{.}}</a>
+            {{/page.num}}
+        </div>
+        <div class="p-2 bd-highlight">
+            {{#hasNext}}
+                <a href="?page={{next}}">다음</a>
+            {{/hasNext}}
+            {{^hasNext}}
+                다음
+            {{/hasNext}}
+        </div>
     </div>
 </div>
 {{>layout/footer}}
