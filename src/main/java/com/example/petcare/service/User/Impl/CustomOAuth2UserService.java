@@ -37,12 +37,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         } else {
             return null;
         }
-        String role = "ROLE_USER";
         return processOAuth2User(oAuth2Response);
-        //return new CustomOAuth2User(oAuth2Response, role);
     }
     private OAuth2User processOAuth2User(OAuth2Response oAuth2Response) {
-        //oAuth2UserInfo = oAuth2Response userRepository.findByUsername(oAuth2Response.getName());
         Optional<UserEntity> userEntity = userRepository.findByEmail(oAuth2Response.getEmail());
         log.info(oAuth2Response.getEmail());
         log.info(String.valueOf(userRepository.existsByEmail(oAuth2Response.getEmail())));
