@@ -1,26 +1,28 @@
 {{>layout/header}}
 <div class="layout">
     <h1 class="d-flex justify-content-center">내 아이 찾기</h1>
-    <form action="/search/petCare" method="get" style="display: inline;">
-        <div class="d-flex flex-row bd-highlight">
-            <div class="p-2 bd-highlight">
-                <select name="search" id="search" class="form-select form-select-sm">
-                    <option value="content">제목+본문</option>
-                    <option value="username">작성자</option>
-                    <option value="all">전체 보기</option>
-                </select>
+    <div class="d-flex flex-row bd-highlight">
+        <form action="/search/petCare" method="get" style="display: inline;">
+            <div class="d-flex flex-row bd-highlight">
+                <div class="p-2 bd-highlight">
+                    <select name="search" id="search" class="form-select form-select-sm">
+                        <option value="content">제목+본문</option>
+                        <option value="username">작성자</option>
+                        <option value="all">전체 보기</option>
+                    </select>
+                </div>
+                <div class="flex-grow-1 p-2 bd-highlight">
+                    <input type="text" name="keyword">
+                </div>
+                <div class="bd-highlight p-2">
+                    <button type="submit" class="btn btn-light">검색</button>
+                </div>
             </div>
-            <div class="flex-grow-1 p-2 bd-highlight">
-                <input type="text" class="form-control" name="keyword">
-            </div>
-            <div class="bd-highlight p-2">
-                <button type="submit" class="btn btn-light">검색</button>
-            </div>
-            <div class="bd-highlight p-2">
-                <button class="btn btn-dark" onclick="writeBoard()">글 작성</button>
-            </div>
+        </form>
+        <div class="bd-highlight p-2">
+            <button onclick="location.href='/findPet/write'" class="btn btn-dark">글 작성</button>
         </div>
-    </form>
+    </div>
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
             <th>글번호</th>
@@ -59,9 +61,4 @@
         </div>
     </div>
 </div>
-<script>
-    function writeBoard(){
-        window.location.href = 'write';
-    }
-</script>
 {{>layout/footer}}

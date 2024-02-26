@@ -18,18 +18,17 @@ public class UsernameAspect {
     /*Controller마다 세션으로부터 사용자 이름 받아와서 Model에 집어넣기*/
     @Before("execution(* com.example.petcare.controller.*.*(..))")
     public void userInfoSet(JoinPoint joinPoint) {
-
-        Object[] args = joinPoint.getArgs();                          //메게변수 배열 저장
-        Arrays.stream(args)                                           //메게변수 stream변환
-                .filter(arg -> arg instanceof Model)                  //메게변수 중 Model 필터링
-                .findFirst()
-                .ifPresent(modelArg -> {
-                    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                    Model model = (Model) modelArg;
-                    String id = authentication.getName();
-                    if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser") && !authentication.getAuthorities().isEmpty()) {
-                        model.addAttribute("info", id);
-                    }
-                });
+        Object[] args = joinPoint.getArgs(); // 메게변수 배열 저장
+        for (Object arg : args) {           // 메게변수를 반복문으로 순회
+            if (arg instanceof Model) {     // Model 타입인지 확인
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Model model = (Model) arg;
+                String id = authentication.getName();
+                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser") && !authentication.getAuthorities().isEmpty()) {
+                    model.addAttribute("info", id);
+                }
+                break; // Model을 찾았으므로 반복문 종료
+            }
+        }
     }
 }

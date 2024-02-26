@@ -2,10 +2,14 @@
 <div class="layout">
     <h1>게시판</h1>
     <form action="/community/writedo" method="post" enctype="multipart/form-data">
-        <input name="title" type="text"/>
-        <textarea name="content"></textarea>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-        <button type="submit" class="btn btn-primary">저장</button>
+        <div class="d-flex flex-column bd-highlight">
+            <h2 class="p-2 bd-highlight">제목</h2>
+            <div class="p-2 bd-highlight"> <input name="title" type="text"/></div>
+            <h2 class="p-2 bd-highlight">본문</h2>
+            <div class="p-2 bd-highlight"><textarea name="content"></textarea></div>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <div class="p-2 bd-highlight"><button type="submit" class="btn btn-primary">저장</button></div>
+        </div>
     </form>
 </div>
 {{>layout/footer}}
