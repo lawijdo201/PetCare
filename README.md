@@ -62,30 +62,38 @@ Mustache, Bootstrap, Ajax, Spring Boot, Spring Security, Spring Data JPA, JPQL, 
 
 
 #### 화면
+
 메인 화면
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/f20cdcac-e6b3-4d98-8a9f-5109b074270d)
 
 읽을 거리
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/a965d51a-5e79-40f2-90a6-4dcc47cb28de)
 
 내 아이 찾기
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/b1e24f22-79ea-4a27-92c0-78ea8d6ed680)
 
 사료 칼로리 계산
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/57f93c20-8204-4663-8a1d-1d1996740b31)
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/d5cb19d2-fa40-446e-82ba-0cf277965f0f)
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/fa310d2b-0e31-4fd0-a5b3-6ce81bf18005)
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/60cdf56e-8418-4c56-92f1-7a3ac48fc8b5)
 
 1일 권장 칼로리
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/0eed386a-21de-42f3-b7d8-255905681c1d)
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/87c519c1-e7b5-441c-a58f-e68319e77495)
 
 커뮤니티
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/fb01a975-86db-4027-9cf4-6b7ef4fbebe5)
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/a7493cee-f0d6-466b-9dd8-152a0b62a623)
 
 회원 정보
+------------------
 ![image](https://github.com/lawijdo201/PetCare/assets/86397164/3685f24e-9c61-4666-a592-ec54e85a0c14)
 
 
