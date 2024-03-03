@@ -187,7 +187,7 @@ public class CalorieServiceImpl implements CalorieService {
     @Override
     public float dogRecommandCal(RecommandCalDTO recommandCalDTO) {
         float RER;
-        if (recommandCalDTO.getWeight() < 2 && recommandCalDTO.getWeight() >= 45) {
+        if (recommandCalDTO.getWeight() < 2 || recommandCalDTO.getWeight() >= 45) {
             RER = 30 * recommandCalDTO.getWeight() + 70;
         } else {
             RER = recommandCalDTO.getWeight() * 70 * 0.75f;
