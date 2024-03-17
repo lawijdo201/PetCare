@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.petcare.mapper.BoardMapper">
+    <select id="selectById" resultType="com.example.petcare.entity.Board">
+        SELECT * FROM Board WHERE id = #{id}
+    </select>
+
+    <select id="selectIdWithBidAndAid" resultType="com.example.petcare.data.dto.Board.NearByBoardDTO">
+        <![CDATA[
+        SELECT b.id as id,
+               IFNULL((SELECT MAX(b1.id) FROM board b1 WHERE b1.id < #{id}), 0) as bid,
+               IFNULL((SELECT MIN(b2.id) FROM board b2 WHERE b2.id > #{id}), 2147483647) as aid
+        FROM Board b WHERE b.id = #{id}]]>
+    </select>
+</mapper>

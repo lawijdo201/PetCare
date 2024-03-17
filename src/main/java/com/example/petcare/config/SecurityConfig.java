@@ -70,6 +70,7 @@ public class SecurityConfig {
                                         .requestMatchers("/main").hasAnyRole("USER")
                                         .requestMatchers("/calorie/recommand_calorie/cat").permitAll()
                                         .requestMatchers("/view").permitAll()
+                                        .requestMatchers("/test").permitAll()
                                         .anyRequest().authenticated());
 
 

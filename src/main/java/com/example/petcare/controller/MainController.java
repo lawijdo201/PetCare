@@ -4,7 +4,6 @@ import com.example.petcare.data.dto.PetCare.GiveCareDTO;
 import com.example.petcare.data.dto.PetCare.RoleDTO;
 import com.example.petcare.entity.PetCare;
 import com.example.petcare.entity.UserCareService;
-import com.example.petcare.repository.UserRepository;
 import com.example.petcare.service.PetCareService.PetCareService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,9 +32,11 @@ import java.util.Map;
 public class MainController {
     private final PetCareService petCareService;
 
+
     public MainController(PetCareService petCareService) {
         this.petCareService = petCareService;
     }
+
 
     //메인
     @GetMapping("/")
